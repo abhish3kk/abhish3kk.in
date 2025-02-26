@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "Abhishek Sharma"
+  },
+  "home": {
+    "about": {
+      "title": "About Me: Code, Chaos, and Coffee",
+      "content": [
+        "If you ask me what I do, I could give you the usual spiel—11 years of experience, full-stack mastery, and a knack for reviving projects on life support. But the truth? I build, break, optimize, and scale software, all while navigating the wild terrain of frontend, backend, cloud, and DevOps. Whether it’s wrangling a rogue CI/CD pipeline, refactoring Java spaghetti into maintainable services, or migrating a legacy AngularJS monstrosity into something that won’t make future developers cry—I’ve done it.",
+        "I don’t just code. I architect solutions. I lead teams. I mentor engineers because writing good code is one thing, but teaching others to do it? That’s where the real impact lies. I’ve seen trends rise and fall—monolithic backends getting sliced into microservices, Webpack getting usurped by Vite, frontend frameworks playing musical chairs. Through it all, I’ve learned that the best engineers aren’t just obsessed with the latest tech—they’re obsessed with building things that last."
+      ]
+    },
+    "philosophy": {
+      "title": "My Software Engineering Philosophy",
+      "content": [
+        "1️⃣ “Simple is scalable.” The best systems aren’t the ones with the most features. They’re the ones that don’t crumble under their own complexity. I design software that’s modular, testable, and resilient, not just shiny.",
+        "2️⃣ “DevOps isn’t a team, it’s a mindset.” If you still think DevOps is just Jenkins jobs and Dockerfiles, we need to talk. I believe in ownership from commit to production, automated deployments, and making infrastructure as painless as possible.",
+        "3️⃣ “Frameworks change. Fundamentals don’t.” I’ve used Vue, React, Angular, Node.js, and Java, but at the end of the day, solid system design, performance optimization, and clean architecture always win.",
+        "4️⃣ “Legacy code isn’t scary—bad code is.” I’ve worked with legacy systems that were a pleasure to maintain and greenfield projects that became unmanageable in six months. The key? Refactoring with intent.",
+        "5️⃣ “Mentorship is an engineering multiplier.” The best teams don’t just ship great code—they cultivate great engineers. I thrive on coaching devs, fostering a culture of learning, clean code, and ownership."
+      ]
+    },
+    "why": {
+      "title": "Why I Built This Website",
+      "content": [
+        "This site isn’t just a portfolio—it’s a storyboard of my career, my learnings, my adventures, and my experiments. You’ll find everything from side projects to technical write-ups to hard-earned lessons from the trenches."
+      ]
+    }
+  }
+}
