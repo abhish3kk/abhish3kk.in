@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Bars3BottomRightIcon } from "@heroicons/vue/24/solid";
 import { onMounted, onUnmounted, ref } from "vue";
-import routes from "../router/routes";
 import { useRoute } from "vue-router";
+import { navRoutes } from "../router/routes";
 
 const showMenu = ref<boolean>(false);
 const currentRoute = useRoute();
@@ -25,17 +25,18 @@ onUnmounted(() => {
 <template>
   <div class="w-full p-4 border-b border-gray-300 dark:border-gray-700">
     <div class="flex items-center justify-between">
-      <div
+      <RouterLink
+        to="/"
         class="text-lg font-mono text-gray-900 dark:text-light-gray flex items-center"
       >
         <span class="pr-1">abhish3kk.in:~/$</span>
         <span
           class="animate-blink w-2 h-5 bg-gray-900 dark:bg-light-gray"
         ></span>
-      </div>
+      </RouterLink>
       <div class="hidden md:flex space-x-6 text-gray-900 dark:text-light-gray">
         <RouterLink
-          v-for="route in routes"
+          v-for="route in navRoutes"
           :to="route.path"
           :key="route.name"
           :class="`hover:text-gray-500 ${currentRoute.path === route.path ? 'font-bold' : ''}`"
@@ -62,9 +63,8 @@ onUnmounted(() => {
             tabindex="-1"
           >
             <div class="py-1" role="none">
-              <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
               <RouterLink
-                v-for="route in routes"
+                v-for="route in navRoutes"
                 :to="route.path"
                 :key="route.name"
                 @click="showMenu = !showMenu"
