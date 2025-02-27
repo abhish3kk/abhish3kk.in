@@ -29,3 +29,8 @@ onMounted(async () => {
     <component :is="compiledContent" />
   </article>
 </template>
+<style lang="css" scoped>
+.prose {
+  max-width: 100ch;
+}
+</style>

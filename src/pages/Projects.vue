@@ -27,32 +27,34 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="max-w-4xl mx-auto p-6">
-    <div class="space-y-4">
+  <div class="max-w-4xl mx-auto p-6 font-mono">
+    <div class="space-y-2">
       <div
         v-for="project in projects"
         :key="project.path"
-        class="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-white shadow-md rounded-lg border border-gray-200 hover:shadow-lg transition"
+        class="flex flex-col md:flex-row items-start md:items-center justify-between p-2 shadow-lg rounded-lg border dark:border-gray-700 hover:shadow-xl transition"
       >
-        <div>
-          <h2 class="text-lg font-semibold text-gray-800">
+        <!-- Terminal Body -->
+        <div class="w-full p-2 rounded-b-lg">
+          <h2 class="text-lg font-semibold dark:text-green-400">
             <RouterLink
               :to="`/project/${project.path}`"
-              class="hover:text-blue-600"
+              class="hover:text-blue-400"
             >
               {{ project.title }}
             </RouterLink>
           </h2>
-          <p class="text-sm text-gray-600">{{ project.description }}</p>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-2 md:mt-0">
-          <span
-            v-for="tech in project.stack"
-            :key="tech"
-            class="text-xs font-medium px-2 py-1 bg-gray-100 rounded-lg"
-          >
-            {{ tech }}
-          </span>
+          <p class="text-sm dark:text-gray-300">{{ project.description }}</p>
+
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span
+              v-for="stack in project.stack"
+              :key="stack"
+              class="text-xs font-medium px-2 py-1 dark:bg-gray-700 dark:text-green-300 rounded-lg"
+            >
+              {{ stack }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
