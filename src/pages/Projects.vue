@@ -34,7 +34,6 @@ onMounted(() => {
         :key="project.path"
         class="flex flex-col md:flex-row items-start md:items-center justify-between p-2 shadow-lg rounded-lg border dark:border-gray-700 hover:shadow-xl transition"
       >
-        <!-- Terminal Body -->
         <div class="w-full p-2 rounded-b-lg">
           <h2 class="text-lg font-semibold dark:text-green-400">
             <RouterLink
@@ -50,7 +49,7 @@ onMounted(() => {
             <span
               v-for="stack in project.stack"
               :key="stack"
-              class="text-xs font-medium px-2 py-1 dark:bg-gray-700 dark:text-green-300 rounded-lg"
+              class="text-xs font-medium px-2 py-1 bg-gray-200 dark:bg-gray-700 text-green-700 dark:text-green-300 rounded-lg"
             >
               {{ stack }}
             </span>

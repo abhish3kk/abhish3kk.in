@@ -31,6 +31,44 @@ npm run dev
 npm run build
 ```
 
+### Project Structure
+
+```
+src
+├── App.vue
+├── components
+│   ├── DarkLight.vue
+│   ├── MermaidDiagram.vue
+│   └── Nav.vue
+├── constants
+│   └── index.ts
+├── content
+│   └── projects
+│       ├── abhish3kk.in.md
+│       └── repofinder.md
+├── i18n
+│   ├── index.ts
+│   └── locales
+│       └── en.json
+├── layouts
+├── main.ts
+├── pages
+│   ├── Home.vue
+│   ├── NotFound.vue
+│   ├── Project.vue
+│   └── Projects.vue
+├── router
+│   ├── index.ts
+│   └── routes.ts
+├── store
+│   └── index.ts
+├── style.css
+├── types
+├── utils
+│   └── markdown.ts
+└── vite-env.d.ts
+```
+
 ## Architecture
 
 This section describes how traffic flows from the client to the hosted application.
