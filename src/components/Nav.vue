@@ -29,7 +29,7 @@ onUnmounted(() => {
         to="/"
         class="text-lg font-mono text-gray-900 dark:text-light-gray flex items-center"
       >
-        <span class="pr-1">abhish3kk.in:~/$</span>
+        <span class="pr-1">~/$</span>
         <span
           class="animate-blink w-2 h-5 bg-gray-900 dark:bg-light-gray"
         ></span>
