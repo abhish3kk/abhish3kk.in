@@ -77,12 +77,4 @@ graph TD;
 
 ---
 
-## Future Enhancements
-
-- User favorites system to save and revisit preferred repositories.
-- Improved caching for faster results.
-- Multi-language support for a global audience.
-
----
-
 For more details, visit [repofinder.abhish3kk.in](https://repofinder.abhish3kk.in).
