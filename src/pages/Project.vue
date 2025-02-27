@@ -1,22 +1,31 @@
 <script setup lang="ts">
+import md from "@/utils/markdown";
 import matter from "gray-matter";
-import MarkdownIt from "markdown-it";
-import { onMounted, ref } from "vue";
+import { compile, computed, onMounted, shallowRef } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const content = ref();
+const rawContent = shallowRef("");
+const mdFiles = import.meta.glob<{ default: string }>(
+  "/src/content/projects/*.md",
+  { eager: true, query: "raw" },
+);
+
+const compiledContent = computed(() => compile(rawContent.value));
 
 onMounted(async () => {
-  const response = await fetch(`/src/content/projects/${route.params.slug}.md`);
-  const text = await response.text();
-  console.log("🚀 ~ onMounted ~ text:", text);
-  const parsed = matter(text);
-  console.log("🚀 ~ onMounted ~ parsed:", parsed);
+  const filePath = `/src/content/projects/${route.params.slug}.md`;
+  const mdFileText = mdFiles[filePath].default;
 
-  content.value = new MarkdownIt().render(parsed.content);
+  const parsed = matter(mdFileText, {
+    engines: {},
+  });
+
+  rawContent.value = md.render(parsed.content);
 });
 </script>
 <template>
-  <article class="prose dark:prose-invert" v-html="content"></article>
+  <article class="prose dark:prose-invert">
+    <component :is="compiledContent" />
+  </article>
 </template>
