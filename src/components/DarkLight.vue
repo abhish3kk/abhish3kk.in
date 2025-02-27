@@ -1,29 +1,22 @@
 <script setup lang="ts">
+import { useAppStore } from "@/store/appStore";
+import { APP_THEMES } from "@/types";
 import { MoonIcon, SunIcon } from "@heroicons/vue/24/solid";
 import { onMounted, ref, watch } from "vue";
 
-const darkMode = ref<boolean>(
-  localStorage.getItem("theme")
-    ? localStorage.getItem("theme") === "dark"
-    : window.matchMedia("(prefers-color-scheme: dark)").matches,
-);
+const { theme, setTheme } = useAppStore();
+
+const darkMode = ref<boolean>();
 
 onMounted(() => {
-  setTheme();
+  darkMode.value = theme
+    ? theme === APP_THEMES.DARK
+    : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(darkMode ? APP_THEMES.DARK : APP_THEMES.LIGHT);
 });
 
-const setTheme = () => {
-  if (darkMode.value) {
-    localStorage.setItem("theme", "dark");
-    document.documentElement.setAttribute("data-theme", "dark");
-  } else {
-    localStorage.setItem("theme", "light");
-    document.documentElement.removeAttribute("data-theme");
-  }
-};
-
-watch(darkMode, () => {
-  setTheme();
+watch(darkMode, (value) => {
+  setTheme(value ? APP_THEMES.DARK : APP_THEMES.LIGHT);
 });
 </script>
 <template>
