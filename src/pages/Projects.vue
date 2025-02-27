@@ -49,7 +49,7 @@ onMounted(() => {
             <span
               v-for="stack in project.stack"
               :key="stack"
-              class="text-xs font-medium px-2 py-1 bg-gray-200 dark:bg-gray-700 text-green-700 dark:text-green-300 rounded-lg"
+              class="text-xs font-medium px-2 py-1 bg-gray-200 dark:bg-gray-700 dark:text-green-300 rounded-lg"
             >
               {{ stack }}
             </span>
