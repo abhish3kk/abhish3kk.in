@@ -33,7 +33,6 @@ jobs:
                return await coredemo.getIDToken()
            result-encoding: string
       - name: Build And Deploy
-        if: github.ref === 'refs/head/main'
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
