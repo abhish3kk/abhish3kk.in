@@ -10,7 +10,7 @@ interface Project {
 
 const projects = ref<Project[]>([]);
 
-onMounted(async () => {
+onMounted(() => {
   const mdFiles = import.meta.glob("/src/content/projects/*.md", {
     eager: true,
   });
@@ -18,7 +18,7 @@ onMounted(async () => {
   projects.value = Object.entries(mdFiles).map(([path, mode]: any) => {
     const { title, description, stack } = mode;
     return {
-      path: path.replace("/src/content/projects/", "").replace(".md", ""), // Extract slug
+      path: path.replace("/src/content/projects/", "").replace(".md", ""),
       title: title || "Untitled",
       description: description || "No description available",
       stack: stack.split(",") || [],
