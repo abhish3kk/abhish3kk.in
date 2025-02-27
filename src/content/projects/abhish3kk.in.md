@@ -1,42 +1,59 @@
 ---
 title: abhish3kk.in
-description: Website to show skills etc
-stack: vue 3, azure, pinia
+description: This website is built with Vue 3 to showcase my personal skills, projects, and technical expertise.
+stack: Vue 3, Azure, GitHub Actions, Pinia, TypeScript, Tailwind CSS, Mermaid, Markdown
 ---
 
-# 📌 Project Name
+# Overview
 
-## 🚀 Description
+[abhish3kk.in](https://abhish3kk.in) is my personal website designed to showcase my skills, projects, and technical expertise. It is built with Vue 3 and deployed on Azure Static Web Apps, integrating Pinia for state management and a modular architecture.
 
-A brief overview of what the project does, its purpose, and key features.
+## Build & Run
 
-## 🏷️ Tech Stack
+The project uses **Vite** for development and build processes. Below are the key scripts defined in `package.json`:
 
-- `React`
-- `Node.js`
-- `Express`
-- `SQLite`
-- `Azure Static Web Apps`
-- `Azure Web App`
-
-## 📜 Features
-
-- ✅ Feature 1
-- ✅ Feature 2
-- ✅ Feature 3
-
-## 🏗️ Architecture
-
-```plaintext
-Frontend (React) -> Backend (Node.js) -> Database (SQLite)
+```json
+"scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+}
 ```
 
+- To start the development server:
+
+```sh
+npm run dev
+```
+
+- To build the project for production:
+
+```sh
+npm run build
+```
+
+## Architecture
+
+This section describes how traffic flows from the client to the hosted application.
+
+### Network Flow
+
 ```mermaid
-flowchart TD
-    A[Christmas] -->|Get money| B(Go shopping)
-    B --> C{Let me think}
-    C -->|One| D[Laptop]
-    C -->|Two| E[iPhone]
-    C -->|Three| F[fa:fa-car Car]
+graph LR
+    User -->|Requests| Namecheap[Namecheap DNS]
+    Namecheap -->|Routes traffic| AzureSWA[Azure Static Web Apps]
+```
+
+### Application Flow
+
+```mermaid
+graph TD
+    Home["Home Page"] -->|Navigation| Projects["Projects"]
+    Home -->|Theme Toggle| DarkLight["🌗 Dark/Light Mode"]
+
+    Projects -->|View Project| Project1["Project 1"]
+    Projects -->|View Project| Project2["Project 2"]
+
+    Project1 -->|Description| P1Details["Project 1 Detail"]
+    Project2 -->|Description| P2Details["Project 2 Detail"]
 
 ```
