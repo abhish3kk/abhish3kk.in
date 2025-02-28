@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import mermaid from "mermaid";
+import { useAppStore } from "@/store/appStore";
+import { storeToRefs } from "pinia";
 
 const props = defineProps<{ code: string }>();
-const diagram = ref("");
+const diagram = ref<string>("");
+const mermaidRef = ref<HTMLDivElement | null>(null);
+const uniqueId = `mermaid-${Date.now()}`;
+const { theme } = storeToRefs(useAppStore());
 
 watch(
   () => props.code,
@@ -15,19 +20,39 @@ watch(
 );
 
 async function renderMermaid() {
-  let theme = localStorage.getItem("theme");
-  theme = theme && theme === "dark" ? theme : "forest";
+  let mermaidTheme = theme.value === "dark" ? theme.value : "forest";
+  diagram;
   mermaid.initialize({
     startOnLoad: false,
-    theme: theme as "default" | "base" | "dark" | "forest" | "neutral" | "null",
+    theme: mermaidTheme as
+      | "default"
+      | "base"
+      | "dark"
+      | "forest"
+      | "neutral"
+      | "null",
   });
 
+  if (mermaidRef.value) {
+    const { svg } = await mermaid.render(
+      uniqueId,
+      decodeURIComponent(props.code),
+    );
+    mermaidRef.value.innerHTML = svg;
+  }
   await mermaid.run();
 }
+
+watch(
+  () => theme.value,
+  async () => {
+    await renderMermaid();
+  },
+);
 
 onMounted(renderMermaid);
 </script>
 
 <template>
-  <div class="mermaid" v-html="diagram"></div>
+  <div ref="mermaidRef"></div>
 </template>
