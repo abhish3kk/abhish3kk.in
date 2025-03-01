@@ -1,7 +1,7 @@
 ---
 title: repofinder.abhish3kk.in
 description: RepoFinder allows users to search GitHub repositories based on various filters such as topics, languages, stars, sorting order, and result limits. Users can log in to save their search preferences.
-stack: React, Azure, GitHub Actions, Zustand, TypeScript, Tailwind CSS, Node Express, SQLite, Swagger, Azure Devops
+stack: React, Azure, GitHub Actions, Zustand, TypeScript, Tailwind CSS, Node Express, SQLite, Swagger, Azure Devops, JWT
 ---
 
 # RepoFinder
