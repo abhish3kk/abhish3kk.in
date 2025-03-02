@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 interface Project {
   path: string;
@@ -9,12 +9,12 @@ interface Project {
 }
 
 const projects = ref<Project[]>([]);
+const query = ref<string>("");
 
 onMounted(() => {
   const mdFiles = import.meta.glob("/src/content/projects/*.md", {
     eager: true,
   });
-  console.log("🚀 ~ onMounted ~ mdFiles:", mdFiles);
   projects.value = Object.entries(mdFiles).map(([path, mode]: any) => {
     const { title, description, stack } = mode;
     return {
@@ -25,12 +25,37 @@ onMounted(() => {
     };
   });
 });
+
+const filteredProjects = computed<Project[]>(() =>
+  query.value === ""
+    ? projects.value
+    : projects.value.filter(
+        (project) =>
+          project.title
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.value.toLowerCase().replace(/\s+/g, "")) ||
+          project.description
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.value.toLowerCase().replace(/\s+/g, "")) ||
+          project.stack.some((stack) =>
+            stack.toLowerCase().replace(/\s+/g, "").includes(query.value),
+          ),
+      ),
+);
 </script>
 <template>
   <div class="max-w-4xl mx-auto p-6 font-mono">
+    <input
+      type="text"
+      v-model="query"
+      placeholder="Search..."
+      class="w-full p-2 mb-4 border rounded-lg dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+    />
     <div class="space-y-2">
       <div
-        v-for="project in projects"
+        v-for="project in filteredProjects"
         :key="project.path"
         class="flex flex-col md:flex-row items-start md:items-center justify-between p-2 shadow-lg rounded-lg border dark:border-gray-700 hover:shadow-xl transition"
       >
