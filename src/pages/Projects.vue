@@ -40,7 +40,10 @@ const filteredProjects = computed<Project[]>(() =>
             .replace(/\s+/g, "")
             .includes(query.value.toLowerCase().replace(/\s+/g, "")) ||
           project.stack.some((stack) =>
-            stack.toLowerCase().replace(/\s+/g, "").includes(query.value),
+            stack
+              .toLowerCase()
+              .replace(/\s+/g, "")
+              .includes(query.value.toLowerCase().replace(/\s+/g, "")),
           ),
       ),
 );
