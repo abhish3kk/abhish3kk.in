@@ -1,8 +1,9 @@
 import MarkdownIt from "markdown-it";
+import anchor from "markdown-it-anchor";
 
 const md = new MarkdownIt({
   html: true,
-});
+}).use(anchor);
 
 md.renderer.rules.fence = (tokens, idx) => {
   const token = tokens[idx];
