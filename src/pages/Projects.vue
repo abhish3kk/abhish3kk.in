@@ -60,7 +60,7 @@ const filteredProjects = computed<Project[]>(() =>
       <div
         v-for="project in filteredProjects"
         :key="project.path"
-        class="flex flex-col md:flex-row items-start md:items-center justify-between p-2 shadow-lg rounded-lg border dark:border-gray-700 hover:shadow-xl transition"
+        class="flex flex-col md:flex-row items-start md:items-center justify-between p-2 shadow-lg rounded-lg border dark:border-gray-700 hover:shadow transition dark:shadow-[0_0px_10px_rgba(34,197,94,0.15)] dark:hover:shadow-[0_0px_15px_rgba(34,197,94,0.2)]"
       >
         <div class="w-full p-2 rounded-b-lg">
           <h2 class="text-lg font-semibold dark:text-green-400">
