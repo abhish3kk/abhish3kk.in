@@ -1,12 +1,12 @@
 ---
 title: abhish3kk.in
-description: This website is built with Vue 3 to showcase my personal skills, projects, and technical expertise.
+description: A personal website built with Vue 3, featuring projects, experiments, and technical explorations
 stack: Vue 3, Azure, GitHub Actions, Pinia, TypeScript, Tailwind CSS, Mermaid, Markdown
 ---
 
 # Overview
 
-[abhish3kk.in](https://abhish3kk.in) is my personal website designed to showcase my skills, projects, and technical expertise. It is built with Vue 3 and deployed on Azure Static Web Apps, integrating Pinia for state management and a modular architecture.
+[abhish3kk.in](https://abhish3kk.in) is my personal website, built with Vue 3 and deployed on Azure Static Web Apps. It features a modular architecture with Pinia for state management, serving as a central hub for my projects, experiments, and technical explorations.
 
 ## Build & Run
 
