@@ -147,3 +147,72 @@ Context API is used for handling UI-related transient states that don’t requir
 - **Loader State** – Controls when to show/hide the loader during API requests and page transitions.
 
 By combining **Zustand** for persistent, app-wide state and **Context API** for temporary UI state, Repofinder ensures a smooth and optimized user experience.
+
+### Folder Structure
+
+```
+src
+├── AppRoutes.tsx
+├── Provider.tsx
+├── api
+│   ├── api.service.ts
+│   ├── axiosInstance.ts
+│   ├── config.ts
+│   ├── endpoints.ts
+│   ├── http.service.ts
+│   └── index.ts
+├── assets
+│   ├── react.svg
+│   └── repos.json
+├── auth
+│   └── ProtectedRoute.tsx
+├── components
+│   ├── Card.tsx
+│   ├── Combobox.tsx
+│   ├── Darklight.tsx
+│   ├── Error.tsx
+│   ├── Loader.tsx
+│   ├── MainContent.tsx
+│   ├── Nav.tsx
+│   └── UserDropdown.tsx
+├── contexts
+│   ├── authContext.ts
+│   ├── healthContext.ts
+│   ├── index.ts
+│   └── loaderContext.ts
+├── hooks
+│   ├── index.ts
+│   ├── useAuth.ts
+│   └── useLoader.ts
+├── index.css
+├── main.tsx
+├── models
+│   ├── api.request.model.ts
+│   ├── api.response.model.ts
+│   ├── app.models.ts
+│   ├── app.types.ts
+│   ├── github.model.ts
+│   └── github.types.ts
+├── providers
+│   ├── AuthProvider.tsx
+│   ├── HealthProvider.tsx
+│   ├── LoaderProvider.tsx
+│   └── index.ts
+├── routes
+│   └── index.tsx
+├── store
+│   ├── appStore.ts
+│   ├── authStore.ts
+│   ├── index.ts
+│   └── settingStore.ts
+├── utils
+│   ├── enumToArray.ts
+│   ├── getLabelFromOption.ts
+│   └── index.ts
+├── views
+│   ├── Dashboard.tsx
+│   ├── Login.tsx
+│   ├── Register.tsx
+│   └── Settings.tsx
+└── vite-env.d.ts
+```
