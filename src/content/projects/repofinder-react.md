@@ -84,12 +84,13 @@ Repofinder is a React application that helps users discover GitHub repositories 
 Repofinder follows a **client-server architecture**, where the frontend (React) communicates with the backend (Node.js + Express) to fetch repositories via the GitHub API. The application ensures seamless user authentication, state management, and API communication to provide an interactive user experience.
 
 ```mermaid
-graph LR;
-    User -->|Requests| ReactApp;
-    ReactApp -->|API Calls| NodeBackend;
-    NodeBackend -->|Fetches Data| GitHubAPI;
-    NodeBackend -->|Response| ReactApp;
-    ReactApp -->|Displays Data| User;
+flowchart LR
+    User["User"] -->|Requests| ReactApp["ReactApp (Azure SWA)"]
+    ReactApp -->|API Calls| NodeBackend["NodeBackend (Azure VM)"]
+    NodeBackend -->|Fetches Data| GitHubAPI["GitHub API"]
+    GitHubAPI -->|Data| NodeBackend
+    NodeBackend -->|Response| ReactApp
+    ReactApp -->|Displays Data| User
 ```
 
 > The diagram above represents the data flow: Users interact with the React frontend, which fetches data from the backend, and the backend queries the GitHub API before returning the results to the client.
@@ -151,6 +152,8 @@ Context API is used for handling UI-related transient states that don’t requir
 - **Loader State** – Controls when to show/hide the loader during API requests and page transitions.
 
 By combining **Zustand** for persistent, app-wide state and **Context API** for temporary UI state, Repofinder ensures a smooth and optimized user experience.
+
+#### **API Communication**
 
 ### Folder Structure
 
