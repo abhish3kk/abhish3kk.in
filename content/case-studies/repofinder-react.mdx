@@ -1,0 +1,39 @@
+---
+title: "RepoFinder React"
+summary: "A repository discovery interface used to frame frontend boundaries, API integration, filtering behavior, and deployment tradeoffs."
+status: "Shipped"
+year: 2025
+role: "Frontend engineer"
+stack:
+  - "React"
+  - "TypeScript"
+  - "GitHub API"
+  - "Vite"
+  - "Static hosting"
+domains:
+  - "Frontend architecture"
+  - "Search and filtering"
+  - "API boundaries"
+featured: true
+---
+
+## Context
+
+RepoFinder explored a focused product surface: search repositories, inspect useful metadata, and keep the interaction model fast enough for repeated discovery work.
+
+The interesting part was not the interface alone. The system needed a clear boundary between API concerns, view state, filtering, and presentational components.
+
+## Architecture Notes
+
+- Fetching logic stays separate from display components.
+- Filtering is modeled as explicit UI state instead of incidental string handling.
+- Repository cards expose only the metadata needed for comparison.
+- Deployment remains static, with API calls made from the client.
+
+## Tradeoffs
+
+The GitHub API creates rate-limit and availability constraints that the interface has to acknowledge. The implementation keeps the product small enough that those constraints are visible rather than hidden behind unnecessary infrastructure.
+
+## Outcome
+
+RepoFinder is a compact example of product-oriented frontend architecture: a narrow workflow, clear state boundaries, and enough structure to explain the decisions behind the interface.

@@ -1,0 +1,41 @@
+---
+title: "abhish3kk.in Portfolio Platform"
+summary: "A static engineering portfolio platform shaped around typed content, low-maintenance publishing, and architecture-first case studies."
+status: "Evolving"
+year: 2026
+role: "Principal engineer, platform owner"
+stack:
+  - "Next.js App Router"
+  - "TypeScript"
+  - "Tailwind CSS"
+  - "MDX"
+  - "Azure Static Web Apps"
+domains:
+  - "Platform modernization"
+  - "Static architecture"
+  - "Content systems"
+featured: true
+---
+
+## Context
+
+The original site was a lightweight Vue and Vite portfolio. It worked, but the content model had no durable place for long-form engineering writeups, architecture decisions, or project histories.
+
+The migration reframed the site as a static documentation platform: simple routes, typed content, and build-time rendering instead of a runtime publishing system.
+
+## Architecture Notes
+
+- Static export keeps hosting quiet and predictable.
+- Case-study metadata is validated before pages are generated.
+- The content directory is treated as the source of truth.
+- The App Router keeps layouts and pages close to the routes they serve.
+
+## Tradeoffs
+
+The platform deliberately avoids a CMS, database, search index, and analytics layer. Those choices reduce operational surface area while the content architecture is still small.
+
+The constraint is that publishing remains developer-oriented. That is acceptable for a portfolio that should read like engineering field notes rather than a product newsroom.
+
+## Outcome
+
+The site now has a foundation for case studies that can grow one file at a time. The platform remains static, inspectable, and easy to deploy through Azure Static Web Apps.
