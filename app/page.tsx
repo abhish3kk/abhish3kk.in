@@ -1,21 +1,7 @@
 import { ExternalLink } from "@/components/external-link";
 import { FeatureCard } from "@/components/feature-card";
 import { Section } from "@/components/section";
-
-const caseStudies = [
-  {
-    eyebrow: "Modernization",
-    title: "Portfolio Platform Migration",
-    description:
-      "Rebuilding a personal engineering site into a static, MDX-ready case-study platform with low operational overhead.",
-  },
-  {
-    eyebrow: "Architecture",
-    title: "Repository Discovery System",
-    description:
-      "A search and filtering product framed as frontend architecture, API boundaries, state design, and deployment tradeoffs.",
-  },
-];
+import { getCaseStudies } from "@/lib/case-studies";
 
 const notes = [
   {
@@ -48,6 +34,10 @@ const labs = [
 ];
 
 export default function Home() {
+  const caseStudies = getCaseStudies().filter(
+    (caseStudy) => caseStudy.featured,
+  );
+
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
@@ -116,8 +106,14 @@ export default function Home() {
           title="Featured Case Studies"
           description="Architecture-focused writeups that explain constraints, tradeoffs, systems boundaries, and outcomes."
         >
-          {caseStudies.map((item) => (
-            <FeatureCard key={item.title} {...item} />
+          {caseStudies.map((caseStudy) => (
+            <FeatureCard
+              description={caseStudy.summary}
+              eyebrow={`${caseStudy.status} / ${caseStudy.year}`}
+              href={`/work/${caseStudy.slug}`}
+              key={caseStudy.slug}
+              title={caseStudy.title}
+            />
           ))}
         </Section>
 
