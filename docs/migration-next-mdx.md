@@ -5,6 +5,54 @@
 This document captures the starting point for migrating the current Vue/Vite
 personal site into a static-first Next.js + MDX engineering portfolio.
 
+## Phase 2 Foundation
+
+Phase 2 replaces the Vue/Vite application on the migration branch with a clean
+Next.js foundation. The `main` branch remains the rollback baseline.
+
+### Implemented scope
+
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- MDX-ready configuration
+- Static export through `output: "export"`
+- Homepage only
+- Placeholder homepage sections for case studies, notes, and labs
+- Reserved content folders for future MDX publishing
+
+### Current application routes
+
+| Route | Status      |
+| ----- | ----------- |
+| `/`   | Implemented |
+
+Future phases should add `/work`, `/work/:slug`, and legacy redirects after the
+content model is ready.
+
+### Current source structure
+
+```text
+app/
+components/
+content/
+styles/
+```
+
+The old `src/` Vue application has been removed from this branch.
+
+### Deployment update
+
+The Azure Static Web Apps workflow now points to Next's static export output:
+
+```text
+out
+```
+
+### Build verification
+
+`npm run build` passes and exports static content.
+
 ### Current branch
 
 - Baseline branch: `main`
