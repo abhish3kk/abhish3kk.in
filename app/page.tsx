@@ -1,6 +1,7 @@
 import { ExternalLink } from "@/components/external-link";
 import { FeatureCard } from "@/components/feature-card";
 import { Section } from "@/components/section";
+import { SiteHeader } from "@/components/site-header";
 import { getCaseStudies } from "@/lib/case-studies";
 
 const notes = [
@@ -39,44 +40,26 @@ export default function Home() {
   );
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100">
+    <main className="min-h-screen bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100">
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
-        <header className="flex items-center justify-between border-b border-zinc-800 pb-5 text-sm">
-          <a className="font-mono text-zinc-300" href="/">
-            abhish3kk.in
-          </a>
-          <nav aria-label="Primary navigation" className="flex gap-5">
-            <a
-              className="text-zinc-400 transition hover:text-zinc-100"
-              href="#work"
-            >
-              Work
-            </a>
-            <a
-              className="text-zinc-400 transition hover:text-zinc-100"
-              href="#notes"
-            >
-              Notes
-            </a>
-            <a
-              className="text-zinc-400 transition hover:text-zinc-100"
-              href="#labs"
-            >
-              Labs
-            </a>
-          </nav>
-        </header>
+        <SiteHeader
+          links={[
+            { href: "#work", label: "Work" },
+            { href: "#notes", label: "Notes" },
+            { href: "#labs", label: "Labs" },
+          ]}
+        />
 
         <section className="grid gap-10 py-20 sm:py-24 lg:grid-cols-[1fr_280px] lg:gap-16">
           <div>
             <p className="font-mono text-sm uppercase tracking-[0.24em] text-zinc-500">
               Architecture / Modernization / Reliability
             </p>
-            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-zinc-50 sm:text-5xl">
+            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
               Engineering portfolio for systems that need to be understood,
               modernized, and kept healthy.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
               I work across frontend platforms, cloud delivery, and legacy
               modernization with a bias for clear boundaries, maintainable
               systems, and operationally quiet software.
@@ -91,7 +74,7 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="border-l border-zinc-800 pl-6 text-sm leading-7 text-zinc-400">
+          <aside className="border-l border-zinc-200 pl-6 text-sm leading-7 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             <p className="font-mono text-zinc-500">Current focus</p>
             <p className="mt-3">
               Building a quiet, durable home for engineering case studies,
@@ -137,7 +120,7 @@ export default function Home() {
           ))}
         </Section>
 
-        <footer className="mt-20 border-t border-zinc-800 py-8 text-sm text-zinc-500">
+        <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
           <p>
             Abhishek Sharma. Built as a static, MDX-ready engineering platform.
           </p>
