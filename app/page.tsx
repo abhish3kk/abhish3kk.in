@@ -3,6 +3,8 @@ import { FeatureCard } from "@/components/feature-card";
 import { Section } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { getCaseStudies } from "@/lib/case-studies";
+import { SiGithub } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 
 const notes = [
   {
@@ -65,10 +67,16 @@ export default function Home() {
               reliability and maintainability.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <ExternalLink href="https://github.com/abhish3kk">
+              <ExternalLink
+                href="https://github.com/abhish3kk"
+                icon={<SiGithub />}
+              >
                 GitHub
               </ExternalLink>
-              <ExternalLink href="https://www.linkedin.com/in/abhish3kk/">
+              <ExternalLink
+                href="https://www.linkedin.com/in/abhish3kk/"
+                icon={<FaLinkedin />}
+              >
                 LinkedIn
               </ExternalLink>
             </div>
