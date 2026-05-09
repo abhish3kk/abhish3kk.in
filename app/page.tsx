@@ -15,7 +15,7 @@ const notes = [
     eyebrow: "Frontend platform",
     title: "Static First, Dynamic When Proven",
     description:
-      "A practical bias for static generation, progressive enhancement, and fewer moving parts in portfolio infrastructure.",
+      "A practical bias for static generation, progressive enhancement, and fewer moving parts in delivery infrastructure.",
   },
 ];
 
@@ -56,8 +56,8 @@ export default function Home() {
               Architecture / Modernization / Reliability
             </p>
             <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
-              Engineering portfolio for systems that need to be understood,
-              modernized, and kept healthy.
+              Architecture notes from systems that needed modernization,
+              reliability, and long-term maintainability.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
               I work across frontend platforms, cloud delivery, and legacy
@@ -128,7 +128,7 @@ export default function Home() {
 
         <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
           <p>
-            Abhishek Sharma. Built as a static, MDX-ready engineering platform.
+            Abhishek Sharma. Systems, modernization, and operational engineering notes.
           </p>
         </footer>
       </div>

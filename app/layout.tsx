@@ -4,9 +4,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Abhishek Sharma | Engineering Portfolio",
+  title: "Abhishek Sharma | Engineering",
   description:
-    "Architecture-focused engineering portfolio covering modernization, frontend platforms, reliability, and case studies.",
+    "Architecture notes covering modernization, frontend platforms, reliability, and systems engineering.",
 };
 
 export default function RootLayout({

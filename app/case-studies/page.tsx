@@ -27,7 +27,7 @@ export default function CaseStudiesPage() {
             Case studies
           </p>
           <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
-            Work written as architecture notes.
+            Case studies written as architecture notes.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
             Systems, migrations, and product surfaces documented through
@@ -43,7 +43,7 @@ export default function CaseStudiesPage() {
 
         <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
           <p>
-            Abhishek Sharma. Built as a static, MDX-ready engineering platform.
+            Abhishek Sharma. Systems, modernization, and operational engineering notes.
           </p>
         </footer>
       </div>
