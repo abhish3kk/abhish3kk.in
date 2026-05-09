@@ -16,7 +16,7 @@ export function FeatureCard({
   const titleContent = href ? <Link href={href}>{title}</Link> : title;
 
   return (
-    <article className="border border-zinc-200 bg-white p-5 hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700">
+    <article className="border border-zinc-200 bg-white p-5 hover:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-950 dark:hover:border-zinc-500">
       <p className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
         {eyebrow}
       </p>

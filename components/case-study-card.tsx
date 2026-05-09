@@ -7,7 +7,7 @@ type CaseStudyCardProps = {
 
 export function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
   return (
-    <article className="border border-zinc-200 bg-white p-5 hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700">
+    <article className="border border-zinc-200 bg-white p-5 hover:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-950 dark:hover:border-zinc-500">
       <div className="flex flex-wrap gap-2 font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
         <span>{caseStudy.status}</span>
         <span>/</span>
@@ -22,7 +22,7 @@ export function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
       <div className="mt-5 flex flex-wrap gap-2">
         {caseStudy.domains.map((domain) => (
           <span
-            className="border border-zinc-200 px-2 py-1 font-mono text-xs text-zinc-500 dark:border-zinc-800"
+            className="border border-zinc-200 px-2 py-1 font-mono text-xs text-zinc-500 dark:border-zinc-700 dark:text-zinc-400"
             key={domain}
           >
             {domain}

@@ -47,14 +47,14 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           ]}
         />
 
-        <article className="py-14">
+        <article className="py-10 sm:py-14">
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
             {caseStudy.status} / {caseStudy.year}
           </div>
-          <h1 className="mt-5 text-4xl font-semibold leading-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
+          <h1 className="mt-5 text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
             {caseStudy.title}
           </h1>
-          <p className="mt-6 text-lg leading-8 text-zinc-700 dark:text-zinc-300">
+          <p className="mt-5 text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
             {caseStudy.summary}
           </p>
 

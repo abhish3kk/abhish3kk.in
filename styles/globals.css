@@ -32,6 +32,11 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.dark body {
+  background: #09090b;
 }
 
 a {
