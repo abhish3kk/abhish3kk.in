@@ -44,8 +44,8 @@ export default function Home() {
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
         <SiteHeader
           links={[
-            { href: "#work", label: "Work" },
-            { href: "#notes", label: "Notes" },
+            { href: "#case-studies", label: "Case Studies" },
+            { href: "#engineering-notes", label: "Engineering Notes" },
             { href: "#labs", label: "Labs" },
           ]}
         />
@@ -85,15 +85,17 @@ export default function Home() {
         </section>
 
         <Section
-          id="work"
+          id="case-studies"
           title="Featured Case Studies"
           description="Architecture-focused writeups that explain constraints, tradeoffs, systems boundaries, and outcomes."
+          viewAllHref="/case-studies"
+          viewAllLabel="Explore all case studies"
         >
           {caseStudies.map((caseStudy) => (
             <FeatureCard
               description={caseStudy.summary}
               eyebrow={`${caseStudy.status} / ${caseStudy.year}`}
-              href={`/work/${caseStudy.slug}`}
+              href={`/case-studies/${caseStudy.slug}`}
               key={caseStudy.slug}
               title={caseStudy.title}
             />
@@ -101,9 +103,11 @@ export default function Home() {
         </Section>
 
         <Section
-          id="notes"
+          id="engineering-notes"
           title="Engineering Notes"
           description="Short technical essays on platform decisions, maintainability, and operational habits."
+          viewAllHref="/engineering-notes"
+          viewAllLabel="View all notes"
         >
           {notes.map((item) => (
             <FeatureCard key={item.title} {...item} />
@@ -114,6 +118,8 @@ export default function Home() {
           id="labs"
           title="Labs"
           description="Small experiments and proofs for future case-study components and architecture documentation."
+          viewAllHref="/labs"
+          viewAllLabel="View all experiments"
         >
           {labs.map((item) => (
             <FeatureCard key={item.title} {...item} />

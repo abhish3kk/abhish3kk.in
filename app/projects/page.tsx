@@ -1,4 +1,4 @@
-const target = "/work";
+const target = "/case-studies";
 
 export default function LegacyProjectsPage() {
   return (
@@ -10,7 +10,7 @@ export default function LegacyProjectsPage() {
         }}
       />
       <p className="font-mono text-sm text-zinc-600 dark:text-zinc-400">
-        Redirecting to <a href={target}>/work</a>.
+        Redirecting to <a href={target}>/case-studies</a>.
       </p>
     </main>
   );
