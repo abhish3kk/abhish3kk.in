@@ -60,9 +60,9 @@ export default function Home() {
               reliability, and long-term maintainability.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
-              I work across frontend platforms, cloud delivery, and legacy
-              modernization with a bias for clear boundaries, maintainable
-              systems, and operationally quiet software.
+              I work across modernization initiatives, platform systems,
+              operational tooling, and cloud delivery with a focus on
+              reliability and maintainability.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <ExternalLink href="https://github.com/abhish3kk">
@@ -128,7 +128,8 @@ export default function Home() {
 
         <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
           <p>
-            Abhishek Sharma. Systems, modernization, and operational engineering notes.
+            Abhishek Sharma. Systems, modernization, and operational engineering
+            notes.
           </p>
         </footer>
       </div>
