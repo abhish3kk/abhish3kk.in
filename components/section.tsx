@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 type SectionProps = {
@@ -5,9 +6,18 @@ type SectionProps = {
   title: string;
   description: string;
   children: ReactNode;
+  viewAllHref?: string;
+  viewAllLabel?: string;
 };
 
-export function Section({ id, title, description, children }: SectionProps) {
+export function Section({
+  id,
+  title,
+  description,
+  children,
+  viewAllHref,
+  viewAllLabel = "View all",
+}: SectionProps) {
   return (
     <section
       className="border-t border-zinc-200 py-14 dark:border-zinc-800"
@@ -22,7 +32,19 @@ export function Section({ id, title, description, children }: SectionProps) {
             {description}
           </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">{children}</div>
+        <div>
+          <div className="grid gap-4 sm:grid-cols-2">{children}</div>
+          {viewAllHref && (
+            <div className="mt-6">
+              <Link
+                className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500 hover:text-zinc-950 dark:hover:text-zinc-100"
+                href={viewAllHref}
+              >
+                {viewAllLabel} →
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

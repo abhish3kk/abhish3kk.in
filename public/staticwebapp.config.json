@@ -1,5 +1,22 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html"
-  }
+  },
+  "routes": [
+    {
+      "route": "/work",
+      "redirect": "/case-studies",
+      "statusCode": 301
+    },
+    {
+      "route": "/work/*",
+      "redirect": "/case-studies/{wildcard}",
+      "statusCode": 301
+    },
+    {
+      "route": "/projects",
+      "redirect": "/case-studies",
+      "statusCode": 301
+    }
+  ]
 }

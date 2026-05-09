@@ -14,7 +14,7 @@ export function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
         <span>{caseStudy.year}</span>
       </div>
       <h3 className="mt-4 text-lg font-medium text-zinc-950 dark:text-zinc-100">
-        <Link href={`/work/${caseStudy.slug}`}>{caseStudy.title}</Link>
+        <Link href={`/case-studies/${caseStudy.slug}`}>{caseStudy.title}</Link>
       </h3>
       <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
         {caseStudy.summary}
