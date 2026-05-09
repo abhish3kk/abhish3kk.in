@@ -18,14 +18,14 @@ export default function EngineeringNotesPage() {
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
         <SiteHeader links={innerNav} />
 
-        <section className="py-16 sm:py-20">
+        <section className="py-12 sm:py-16">
           <p className="font-mono text-sm uppercase tracking-[0.24em] text-zinc-500">
             Engineering notes
           </p>
-          <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
+          <h1 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
             Platform decisions, written down.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
             Short technical essays on maintainability, operational habits, and
             the reasoning behind platform choices.
           </p>

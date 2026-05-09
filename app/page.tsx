@@ -52,21 +52,21 @@ export default function Home() {
           ]}
         />
 
-        <section className="grid gap-10 py-20 sm:py-24 lg:grid-cols-[1fr_280px] lg:gap-16">
+        <section className="grid gap-8 py-14 sm:py-18 lg:grid-cols-[1fr_280px] lg:gap-16 lg:py-24">
           <div>
             <p className="font-mono text-sm uppercase tracking-[0.24em] text-zinc-500">
               Architecture / Modernization / Reliability
             </p>
-            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
+            <h1 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
               Architecture notes from systems that needed modernization,
               reliability, and long-term maintainability.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
               I work across modernization initiatives, platform systems,
               operational tooling, and cloud delivery with a focus on
               reliability and maintainability.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
               <ExternalLink
                 href="https://github.com/abhish3kk"
                 icon={<SiGithub />}
@@ -82,7 +82,7 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="border-l border-zinc-200 pl-6 text-sm leading-7 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
+          <aside className="border-t border-zinc-200 pt-6 text-sm leading-7 text-zinc-600 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-6 dark:border-zinc-800 dark:text-zinc-400">
             <p className="font-mono text-zinc-500">Current focus</p>
             <p className="mt-3">
               Building a quiet, durable home for engineering case studies,

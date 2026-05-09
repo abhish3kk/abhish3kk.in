@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Abhishek Sharma | Engineering",
   description:
     "Architecture notes covering modernization, frontend platforms, reliability, and systems engineering.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

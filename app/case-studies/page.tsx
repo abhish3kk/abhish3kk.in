@@ -22,14 +22,14 @@ export default function CaseStudiesPage() {
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
         <SiteHeader links={innerNav} />
 
-        <section className="py-16 sm:py-20">
+        <section className="py-12 sm:py-16">
           <p className="font-mono text-sm uppercase tracking-[0.24em] text-zinc-500">
             Case studies
           </p>
-          <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
+          <h1 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
             Case studies written as architecture notes.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
             Systems, migrations, and product surfaces documented through
             constraints, boundaries, tradeoffs, and outcomes.
           </p>
@@ -43,7 +43,8 @@ export default function CaseStudiesPage() {
 
         <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
           <p>
-            Abhishek Sharma. Systems, modernization, and operational engineering notes.
+            Abhishek Sharma. Systems, modernization, and operational engineering
+            notes.
           </p>
         </footer>
       </div>
