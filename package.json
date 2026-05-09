@@ -4,44 +4,36 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "next dev",
     "prepare": "husky"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.2.0",
-    "@tailwindcss/vite": "^4.0.8",
-    "@types/node": "^22.13.5",
-    "gray-matter": "^4.0.3",
-    "markdown-it": "^14.1.0",
-    "markdown-it-anchor": "^9.2.0",
-    "mermaid": "^11.4.1",
-    "pinia": "^3.0.1",
-    "pinia-plugin-persistedstate": "^4.2.0",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^15.3.2",
+    "@tailwindcss/postcss": "^4.1.7",
+    "next": "^15.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.6.0",
     "tailwindcss": "^4.0.8",
-    "unplugin-vue-markdown": "^28.3.1",
-    "vite-plugin-node-polyfills": "^0.23.0",
-    "vue": "^3.5.13",
-    "vue-i18n": "^11.1.1",
-    "vue-router": "^4.5.0"
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "@types/vue": "^1.0.31",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/tsconfig": "^0.7.0",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "prettier": "3.5.2",
-    "typescript": "^5.7.3",
-    "vite": "^6.2.0",
-    "vue-tsc": "^2.2.4"
+    "typescript": "^5.7.3"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
   "engines": {
-    "node": "22.14.0"
+    "node": "24.x"
   }
 }
