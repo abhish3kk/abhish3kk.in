@@ -4,6 +4,10 @@
   },
   "routes": [
     {
+      "route": "/*.txt",
+      "statusCode": 404
+    },
+    {
       "route": "/work",
       "redirect": "/case-studies",
       "statusCode": 301
