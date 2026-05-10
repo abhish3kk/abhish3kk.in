@@ -40,7 +40,7 @@ The downstream SOAP service was externally owned, which meant the migration stra
 
 ### UI Isolation From Retrieval Strategy
 
-The UI layer was intentionally isolated from the underlying retrieval implementation so that migration sequencing could happen transparently behind a stable contract.
+The UI layer was intentionally isolated from the underlying retrieval implementation so that the migration could proceed transparently behind a stable contract.
 
 This allowed the SOAP and REST implementations to evolve independently without introducing UI-level migration complexity.
 
@@ -63,7 +63,7 @@ This decision allowed:
 
 ### Rollback-First Migration Strategy
 
-The migration strategy optimized for reversibility before optimization.
+The migration strategy prioritized reversibility over speed of delivery.
 
 Even after REST adoption, the architecture intentionally retained the SOAP flow as a fallback path until sufficient operational confidence was established.
 
@@ -93,15 +93,13 @@ This allowed:
 - realistic traffic validation
 - incremental confidence building during rollout
 
-One of the major operational realities was that lower environments could not provide reliable validation because the downstream SOAP and REST systems were backed by inconsistent datasets.
+A key operational constraint was that lower environments could not provide reliable validation because the downstream SOAP and REST systems were backed by inconsistent datasets.
 
 As a result, meaningful comparison validation was only possible in production traffic scenarios.
 
-This constraint had existed operationally for years, and the migration effort became an opportunity to finally address the validation gap through controlled production comparison strategies.
+This constraint had existed for years, and the migration effort became an opportunity to finally address the validation gap through controlled production validation.
 
----
-
-## Validation Flow
+### Validation Flow
 
 ```mermaid
 flowchart LR
@@ -117,34 +115,38 @@ flowchart LR
     REST -. Async Validation .-> COMPARE
 
     COMPARE --> LOGS[Validation Logs]
+```
 
+---
 
-Tradeoffs
-Temporary Dual Execution Complexity
+## Tradeoffs
+
+### Temporary Dual Execution Complexity
 
 During the migration phase, both SOAP and REST systems needed to execute simultaneously for comparison purposes. This temporarily increased operational complexity and downstream request volume.
 
-Production Validation Requirements
+### Production Validation Requirements
 
-Production-based validation increased migration confidence substantially, but required careful isolation to ensure that comparison logic never impacted user-facing latency.
+Validating in production increased migration confidence substantially, but required careful isolation to ensure that comparison logic never impacted user-facing latency.
 
-Retaining SOAP Fallback Paths
+### Retaining SOAP Fallback Paths
 
 Maintaining the legacy SOAP fallback path increased short-term system complexity, but significantly reduced migration and rollout risk while operational confidence in the REST implementation matured.
 
-Outcome
+---
 
-The migration significantly reduced latency variability, improved operational confidence, and enabled gradual retirement of stale-cache dependency patterns.
+## Outcome
+
+The migration significantly reduced latency variability, improved operational confidence, and enabled the gradual retirement of the stale-cache fallback.
 
 The rollout strategy established reusable patterns for:
 
-service modernization
-rollout safety
-feature-flag controlled migrations
-production validation
-rollback-oriented architecture decisions
+- service modernization
+- rollout safety
+- feature-flag controlled migrations
+- production validation
+- rollback-oriented architecture decisions
 
 More importantly, the project reinforced an operational principle that became increasingly valuable across modernization efforts:
 
 Reliable rollback strategies are often more important than aggressive rollout strategies.
-```
