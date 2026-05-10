@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { MermaidDiagram } from "@/components/mermaid-diagram";
 
 type MdxContentProps = {
   source: string;
@@ -7,7 +8,8 @@ type MdxContentProps = {
 type Block =
   | { type: "heading"; depth: 2 | 3; text: string }
   | { type: "paragraph"; text: string }
-  | { type: "list"; items: string[] };
+  | { type: "list"; items: string[] }
+  | { type: "mermaid"; code: string };
 
 export function MdxContent({ source }: MdxContentProps) {
   return (
@@ -38,6 +40,10 @@ function renderBlock(block: Block) {
     );
   }
 
+  if (block.type === "mermaid") {
+    return <MermaidDiagram chart={block.code} />;
+  }
+
   return <p>{block.text}</p>;
 }
 
@@ -46,6 +52,7 @@ function parseBlocks(source: string): Block[] {
   const lines = source.split("\n");
   let paragraph: string[] = [];
   let list: string[] = [];
+  let mermaidLines: string[] | null = null;
 
   function flushParagraph() {
     if (paragraph.length > 0) {
@@ -64,7 +71,24 @@ function parseBlocks(source: string): Block[] {
   for (const line of lines) {
     const trimmedLine = line.trim();
 
-    if (!trimmedLine) {
+    if (mermaidLines !== null) {
+      if (trimmedLine === "```") {
+        blocks.push({ type: "mermaid", code: mermaidLines.join("\n") });
+        mermaidLines = null;
+      } else {
+        mermaidLines.push(line);
+      }
+      continue;
+    }
+
+    if (trimmedLine === "```mermaid") {
+      flushParagraph();
+      flushList();
+      mermaidLines = [];
+      continue;
+    }
+
+    if (!trimmedLine || trimmedLine === "---") {
       flushParagraph();
       flushList();
       continue;
