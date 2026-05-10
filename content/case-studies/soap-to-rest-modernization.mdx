@@ -34,8 +34,6 @@ The goal of the modernization effort was not only to reduce latency, but also to
 
 The downstream SOAP service was externally owned, which meant the migration strategy needed to account for limited control over downstream behavior, inconsistent lower-environment datasets, and operational unpredictability.
 
----
-
 ## Architecture Decisions
 
 ### UI Isolation From Retrieval Strategy
@@ -43,8 +41,6 @@ The downstream SOAP service was externally owned, which meant the migration stra
 The UI layer was intentionally isolated from the underlying retrieval implementation so that the migration could proceed transparently behind a stable contract.
 
 This allowed the SOAP and REST implementations to evolve independently without introducing UI-level migration complexity.
-
----
 
 ### Feature-Flag Controlled Rollout
 
@@ -59,8 +55,6 @@ This decision allowed:
 - controlled validation
 - operational flexibility during migration
 
----
-
 ### Rollback-First Migration Strategy
 
 The migration strategy prioritized reversibility over speed of delivery.
@@ -68,8 +62,6 @@ The migration strategy prioritized reversibility over speed of delivery.
 Even after REST adoption, the architecture intentionally retained the SOAP flow as a fallback path until sufficient operational confidence was established.
 
 This reduced rollout risk significantly and allowed the REST implementation to be validated under real production traffic conditions before fully decommissioning the legacy dependency path.
-
----
 
 ## Validation Strategy
 
@@ -117,8 +109,6 @@ flowchart LR
     COMPARE --> LOGS[Validation Logs]
 ```
 
----
-
 ## Tradeoffs
 
 ### Temporary Dual Execution Complexity
@@ -132,8 +122,6 @@ Validating in production increased migration confidence substantially, but requi
 ### Retaining SOAP Fallback Paths
 
 Maintaining the legacy SOAP fallback path increased short-term system complexity, but significantly reduced migration and rollout risk while operational confidence in the REST implementation matured.
-
----
 
 ## Outcome
 
