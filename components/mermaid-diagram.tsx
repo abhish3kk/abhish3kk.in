@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 type MermaidDiagramProps = {
   chart: string;
@@ -8,18 +8,24 @@ type MermaidDiagramProps = {
 
 export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const id = useId();
 
   useEffect(() => {
-    if (!ref.current) return;
-    const safeId = `mermaid-${id.replace(/:/g, "")}`;
+    const element = ref.current;
+    if (!element) return;
+
+    let cancelled = false;
+
     import("mermaid").then(({ default: mermaid }) => {
-      mermaid.initialize({ startOnLoad: false, theme: "neutral" });
-      mermaid.render(safeId, chart).then(({ svg }) => {
-        if (ref.current) ref.current.innerHTML = svg;
-      });
+      if (cancelled) return;
+      mermaid.initialize({ startOnLoad: false });
+      element.innerHTML = `<pre class="mermaid">${chart}</pre>`;
+      mermaid.run({ nodes: element.querySelectorAll<HTMLElement>(".mermaid") });
     });
-  }, [chart, id]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [chart]);
 
   return <div ref={ref} />;
 }
