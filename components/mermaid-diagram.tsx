@@ -7,11 +7,11 @@ type MermaidDiagramProps = {
   chart: string;
 };
 
-export function MermaidDiagram({ chart }: MermaidDiagramProps) {
-  const DEFAULT_ZOOM = 2;
-  const MAX_ZOOM = 3;
-  const MIN_ZOOM = 0.25;
+const DEFAULT_ZOOM = 1;
+const MAX_ZOOM = 3;
+const MIN_ZOOM = 0.25;
 
+export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const outerRef = useRef<HTMLDivElement>(null);
@@ -30,9 +30,18 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
       mermaid.initialize({
         startOnLoad: false,
         theme: theme === "dark" ? "dark" : "neutral",
+        flowchart: { useMaxWidth: false },
       });
       element.innerHTML = `<pre class="mermaid">${chart}</pre>`;
-      mermaid.run({ nodes: element.querySelectorAll<HTMLElement>(".mermaid") });
+      mermaid
+        .run({ nodes: element.querySelectorAll<HTMLElement>(".mermaid") })
+        .then(() => {
+          const svg = element.querySelector("svg");
+          if (svg) {
+            svg.removeAttribute("height");
+            svg.style.height = "auto";
+          }
+        });
     });
 
     return () => {
@@ -88,7 +97,7 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        className={`flex h-64 w-full select-none items-center justify-center overflow-hidden ${
+        className={`flex w-full select-none items-center justify-center overflow-hidden py-6 ${
           isDragging ? "cursor-grabbing" : "cursor-grab"
         }`}
       >
