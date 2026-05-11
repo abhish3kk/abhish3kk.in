@@ -8,10 +8,14 @@ type MermaidDiagramProps = {
 };
 
 export function MermaidDiagram({ chart }: MermaidDiagramProps) {
+  const DEFAULT_ZOOM = 2;
+  const MAX_ZOOM = 3;
+  const MIN_ZOOM = 0.25;
+
   const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const outerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(DEFAULT_ZOOM);
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
@@ -39,7 +43,7 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   const handleWheel = useCallback((e: WheelEvent) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    setScale((s) => Math.max(0.25, Math.min(3, s + delta)));
+    setScale((s) => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, s + delta)));
   }, []);
 
   useEffect(() => {
@@ -69,10 +73,10 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
 
   const handleMouseUp = () => setIsDragging(false);
 
-  const zoomIn = () => setScale((s) => Math.min(s + 0.25, 3));
-  const zoomOut = () => setScale((s) => Math.max(s - 0.25, 0.25));
+  const zoomIn = () => setScale((s) => Math.min(s + 0.25, MAX_ZOOM));
+  const zoomOut = () => setScale((s) => Math.max(s - 0.25, MIN_ZOOM));
   const reset = () => {
-    setScale(1);
+    setScale(DEFAULT_ZOOM);
     setTranslate({ x: 0, y: 0 });
   };
 
