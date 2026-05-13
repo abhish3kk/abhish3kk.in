@@ -55,7 +55,7 @@ Dev validation in QA was done manually: each screen was compared side-by-side ag
 ### Upgrade Sequence
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Upgrade Shell] --> B{Which MFE\nfails to load?}
     B --> C[Upgrade that MFE]
     C --> D{All MFEs on\nAngular 18?}
@@ -93,7 +93,7 @@ host: example.mfe_2.ng18.net
 ### Rollout and Rollback Flow
 
 ```mermaid
-flowchart TD
+flowchart LR
     GW["API Gateway"] -->|reads on each request| MONGO["MongoDB\nMFE host config"]
     MONGO -->|active entry| NG18["ng18 cluster\nmfe1.ng18.net · mfe2.ng18.net · ..."]
     MONGO -->|legacy entry| NG13["ng13 cluster — standby\nmfe1.ng13.net · mfe2.ng13.net · ..."]

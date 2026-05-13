@@ -1,24 +1,22 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 
 type MermaidDiagramProps = {
   chart: string;
 };
 
-const DEFAULT_ZOOM = 1;
+const MIN_ZOOM = 0.5;
 const MAX_ZOOM = 3;
-const MIN_ZOOM = 0.25;
 
 export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
-  const outerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(DEFAULT_ZOOM);
-  const [translate, setTranslate] = useState({ x: 0, y: 0 });
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
-  const dragStart = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
+  const dragStart = useRef({ x: 0, y: 0, scrollLeft: 0, scrollTop: 0 });
 
   useEffect(() => {
     const element = containerRef.current;
@@ -39,7 +37,10 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
           const svg = element.querySelector("svg");
           if (svg) {
             svg.removeAttribute("height");
+            svg.removeAttribute("width");
+            svg.style.width = "100%";
             svg.style.height = "auto";
+            svg.style.display = "block";
           }
         });
     });
@@ -49,70 +50,49 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
     };
   }, [chart, theme]);
 
-  const handleWheel = useCallback((e: WheelEvent) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    setScale((s) => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, s + delta)));
-  }, []);
-
-  useEffect(() => {
-    const el = outerRef.current;
-    if (!el) return;
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    return () => el.removeEventListener("wheel", handleWheel);
-  }, [handleWheel]);
-
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
     dragStart.current = {
       x: e.clientX,
       y: e.clientY,
-      tx: translate.x,
-      ty: translate.y,
+      scrollLeft: scrollRef.current?.scrollLeft ?? 0,
+      scrollTop: scrollRef.current?.scrollTop ?? 0,
     };
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    setTranslate({
-      x: dragStart.current.tx + (e.clientX - dragStart.current.x),
-      y: dragStart.current.ty + (e.clientY - dragStart.current.y),
-    });
+    if (!isDragging || !scrollRef.current) return;
+    scrollRef.current.scrollLeft = dragStart.current.scrollLeft - (e.clientX - dragStart.current.x);
+    scrollRef.current.scrollTop = dragStart.current.scrollTop - (e.clientY - dragStart.current.y);
   };
 
   const handleMouseUp = () => setIsDragging(false);
 
-  const zoomIn = () => setScale((s) => Math.min(s + 0.25, MAX_ZOOM));
-  const zoomOut = () => setScale((s) => Math.max(s - 0.25, MIN_ZOOM));
-  const reset = () => {
-    setScale(DEFAULT_ZOOM);
-    setTranslate({ x: 0, y: 0 });
-  };
+  const zoomIn = () => setZoom((z) => Math.min(z + 0.25, MAX_ZOOM));
+  const zoomOut = () => setZoom((z) => Math.max(z - 0.25, MIN_ZOOM));
+  const reset = () => setZoom(1);
 
   return (
-    <div className="relative my-6 overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="relative my-6 rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
       <div
-        ref={outerRef}
+        ref={scrollRef}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        className={`flex w-full select-none items-center justify-center overflow-hidden py-6 ${
-          isDragging ? "cursor-grabbing" : "cursor-grab"
-        }`}
+        className={`overflow-auto p-6 select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
       >
         <div
           style={{
-            transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
-            transformOrigin: "center",
-            transition: isDragging ? "none" : "transform 0.15s ease",
+            width: `${zoom * 100}%`,
+            transition: isDragging ? "none" : "width 0.15s ease",
           }}
         >
           <div ref={containerRef} />
         </div>
       </div>
 
-      <div className="absolute bottom-3 right-3 flex flex-col overflow-hidden rounded border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
+      <div className="absolute bottom-3 right-3 flex overflow-hidden rounded border border-zinc-200 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
         <button
           onClick={zoomIn}
           title="Zoom in"
@@ -120,15 +100,15 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
         >
           +
         </button>
-        <div className="border-t border-zinc-200 dark:border-zinc-700" />
+        <div className="border-l border-zinc-200 dark:border-zinc-700" />
         <button
           onClick={reset}
-          title="Reset"
+          title="Reset zoom"
           className="px-2.5 py-1.5 text-xs leading-none text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
         >
           ⟲
         </button>
-        <div className="border-t border-zinc-200 dark:border-zinc-700" />
+        <div className="border-l border-zinc-200 dark:border-zinc-700" />
         <button
           onClick={zoomOut}
           title="Zoom out"
