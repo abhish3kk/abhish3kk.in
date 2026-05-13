@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import hljs from "highlight.js";
 import { MermaidDiagram } from "@/components/mermaid-diagram";
 
 type MdxContentProps = {
@@ -46,11 +47,21 @@ function renderBlock(block: Block) {
   }
 
   if (block.type === "code") {
+    let highlighted = block.code;
+    try {
+      highlighted =
+        block.lang && hljs.getLanguage(block.lang)
+          ? hljs.highlight(block.code, { language: block.lang }).value
+          : hljs.highlightAuto(block.code).value;
+    } catch {
+      // fallback to plain text
+    }
     return (
       <pre>
-        <code className={block.lang ? `language-${block.lang}` : undefined}>
-          {block.code}
-        </code>
+        <code
+          className={`hljs${block.lang ? ` language-${block.lang}` : ""}`}
+          dangerouslySetInnerHTML={{ __html: highlighted }}
+        />
       </pre>
     );
   }
