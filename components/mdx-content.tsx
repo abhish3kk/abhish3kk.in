@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import hljs from "highlight.js";
 import { MermaidDiagram } from "@/components/mermaid-diagram";
 
 type MdxContentProps = {
@@ -9,7 +10,8 @@ type Block =
   | { type: "heading"; depth: 2 | 3; text: string }
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
-  | { type: "mermaid"; code: string };
+  | { type: "mermaid"; code: string }
+  | { type: "code"; lang: string; code: string };
 
 export function MdxContent({ source }: MdxContentProps) {
   return (
@@ -44,6 +46,26 @@ function renderBlock(block: Block) {
     return <MermaidDiagram chart={block.code} />;
   }
 
+  if (block.type === "code") {
+    let highlighted = block.code;
+    try {
+      highlighted =
+        block.lang && hljs.getLanguage(block.lang)
+          ? hljs.highlight(block.code, { language: block.lang }).value
+          : hljs.highlightAuto(block.code).value;
+    } catch {
+      // fallback to plain text
+    }
+    return (
+      <pre>
+        <code
+          className={`hljs${block.lang ? ` language-${block.lang}` : ""}`}
+          dangerouslySetInnerHTML={{ __html: highlighted }}
+        />
+      </pre>
+    );
+  }
+
   return <p>{block.text}</p>;
 }
 
@@ -53,6 +75,8 @@ function parseBlocks(source: string): Block[] {
   let paragraph: string[] = [];
   let list: string[] = [];
   let mermaidLines: string[] | null = null;
+  let codeLines: string[] | null = null;
+  let codeLang = "";
 
   function flushParagraph() {
     if (paragraph.length > 0) {
@@ -81,10 +105,29 @@ function parseBlocks(source: string): Block[] {
       continue;
     }
 
+    if (codeLines !== null) {
+      if (trimmedLine === "```") {
+        blocks.push({ type: "code", lang: codeLang, code: codeLines.join("\n") });
+        codeLines = null;
+        codeLang = "";
+      } else {
+        codeLines.push(line);
+      }
+      continue;
+    }
+
     if (trimmedLine === "```mermaid") {
       flushParagraph();
       flushList();
       mermaidLines = [];
+      continue;
+    }
+
+    if (trimmedLine.startsWith("```")) {
+      flushParagraph();
+      flushList();
+      codeLang = trimmedLine.slice(3).trim();
+      codeLines = [];
       continue;
     }
 
