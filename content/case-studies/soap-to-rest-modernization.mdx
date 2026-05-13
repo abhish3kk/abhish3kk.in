@@ -1,5 +1,5 @@
 ---
-title: "Modernizing Trade Retrieval: SOAP to REST Under Operational Constraints"
+title: "Migrating from SOAP to REST Under Production Constraints"
 summary: "Reducing multi-minute trade retrieval latency through a rollback-safe REST modernization strategy with production validation workflows."
 subtitle: "Reducing multi-minute response times while preserving rollback safety and production validation confidence."
 status: "Shipped"
@@ -94,7 +94,7 @@ This constraint had existed for years, and the migration effort became an opport
 ### Validation Flow
 
 ```mermaid
-flowchart TB
+flowchart LR
     UI[Frontend UI] --> API[Trade Retrieval Service]
 
     API -->|Primary Flow| SOAP[SOAP Service]

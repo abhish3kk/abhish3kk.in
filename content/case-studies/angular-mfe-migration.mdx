@@ -1,5 +1,5 @@
 ---
-title: "Modernizing Distributed Frontend Platforms: Angular Migration Across Enterprise Microfrontends"
+title: "Angular Migration Across Shared Microfrontends"
 summary: "How we migrated a tightly-coupled microfrontend platform from Angular 13 to 18—with ag-Grid 29 to 32 in tow—while preserving rollback safety and coordinating sign-off across multiple downstream teams."
 subtitle: "Coordinating a framework jump, an ag-Grid upgrade, and a zero-downtime rollout strategy across cross-team ownership boundaries."
 status: "Shipped"
@@ -55,7 +55,7 @@ Dev validation in QA was done manually: each screen was compared side-by-side ag
 ### Upgrade Sequence
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Upgrade Shell] --> B{Which MFE\nfails to load?}
     B --> C[Upgrade that MFE]
     C --> D{All MFEs on\nAngular 18?}
@@ -93,7 +93,7 @@ host: example.mfe_2.ng18.net
 ### Rollout and Rollback Flow
 
 ```mermaid
-flowchart TD
+flowchart LR
     GW["API Gateway"] -->|reads on each request| MONGO["MongoDB\nMFE host config"]
     MONGO -->|active entry| NG18["ng18 cluster\nmfe1.ng18.net · mfe2.ng18.net · ..."]
     MONGO -->|legacy entry| NG13["ng13 cluster — standby\nmfe1.ng13.net · mfe2.ng13.net · ..."]
