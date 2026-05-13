@@ -44,7 +44,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100">
-      <div className="mx-auto flex w-full max-w-3xl flex-col px-6 py-8 sm:px-8 lg:px-10">
+      <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
         <SiteHeader links={innerNav} />
 
         <article className="py-10 sm:py-14">
