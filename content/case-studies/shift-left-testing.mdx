@@ -33,17 +33,29 @@ That incident made the problem concrete: the validation timing was wrong. The co
 
 The late-stage QA model carried several structural problems that compounded as the platform grew.
 
-**Manual validation bottlenecks.** QA capacity did not scale with the rate of changes. A small team handling tickets across multiple repositories created an inherent backlog. Priority mismatches between development and QA schedules were common.
+### Manual validation bottlenecks
 
-**Environment instability at validation time.** Lower environments were shared and unstable. A downstream service outage during QA blocked validation entirely, even for changes that had no integration surface with the affected service.
+QA capacity did not scale with the rate of changes. A small team handling tickets across multiple repositories created an inherent backlog. Priority mismatches between development and QA schedules were common.
 
-**Inconsistent standards across repositories.** Different repositories had different levels of test coverage, different conventions, and no shared pipeline contract. Some had meaningful automated checks; others had none. QA became the single enforcement point by default.
+### Environment instability at validation time
 
-**Developer dependency on QA for basic feedback.** Changes that could have been validated automatically — build verification, unit correctness, basic integration smoke — were queued alongside complex behavioural validation. The queue treated all changes equally regardless of risk surface.
+Lower environments were shared and unstable. A downstream service outage during QA blocked validation entirely, even for changes that had no integration surface with the affected service.
 
-**Deployment anxiety.** Without early confidence signals, deployments carried accumulated uncertainty. Developers and QA alike operated under pressure, knowing that the cost of a late-stage failure would ripple back through the entire queue.
+### Inconsistent standards across repositories
 
-**Cross-team coordination overhead.** In a multi-MFE environment, a failure discovered by QA late in the cycle often required coordinating with multiple teams to determine root cause and ownership. The later the discovery, the more people were pulled into diagnosis.
+Different repositories had different levels of test coverage, different conventions, and no shared pipeline contract. Some had meaningful automated checks; others had none. QA became the single enforcement point by default.
+
+### Developer dependency on QA for basic feedback
+
+Changes that could have been validated automatically — build verification, unit correctness, basic integration smoke — were queued alongside complex behavioural validation. The queue treated all changes equally regardless of risk surface.
+
+### Deployment anxiety
+
+Without early confidence signals, deployments carried accumulated uncertainty. Developers and QA alike operated under pressure, knowing that the cost of a late-stage failure would ripple back through the entire queue.
+
+### Cross-team coordination overhead
+
+In a multi-MFE environment, a failure discovered by QA late in the cycle often required coordinating with multiple teams to determine root cause and ownership. The later the discovery, the more people were pulled into diagnosis.
 
 ## Architecture Decisions
 
@@ -96,23 +108,33 @@ Each repository adopted a shared pipeline template that enforced the layer struc
 
 The rollout exposed several real constraints that shaped how the strategy was adopted.
 
-**Legacy repositories.** Several repositories had minimal or no test coverage. Enforcing the pipeline contract immediately would have blocked all deployments from those repositories. They required a phased path — advisory mode first, then gradual enforcement as coverage was added.
+### Legacy repositories
 
-**Flaky tests.** Some existing tests had intermittent failures that were unrelated to application correctness. Making these tests blocking meant the pipeline would fail on noise. Flaky tests needed to be identified, quarantined, and either stabilised or removed before enforcement could be trusted.
+Several repositories had minimal or no test coverage. Enforcing the pipeline contract immediately would have blocked all deployments from those repositories. They required a phased path — advisory mode first, then gradual enforcement as coverage was added.
 
-**Developer resistance to local hooks.** Git hooks running on the local machine added latency to the commit cycle. Some developers bypassed them during rapid iteration. This was accepted as a tradeoff — the CI pipeline remained the authoritative enforcement point, with local hooks as an optional acceleration layer.
+### Flaky tests
 
-**CI resource contention.** Running four validation layers per PR increased CI runtime and resource usage. On active repositories with frequent PRs, queue times increased. This was a real cost, not a negligible one.
+Some existing tests had intermittent failures that were unrelated to application correctness. Making these tests blocking meant the pipeline would fail on noise. Flaky tests needed to be identified, quarantined, and either stabilised or removed before enforcement could be trusted.
 
-**Balancing speed and enforcement.** Some changes — documentation updates, configuration adjustments, safe dependency bumps — did not warrant the full validation chain. The pipeline was extended to support path-scoped skipping for changes with no code surface, reducing unnecessary CI load.
+### Developer resistance to local hooks
+
+Git hooks running on the local machine added latency to the commit cycle. Some developers bypassed them during rapid iteration. This was accepted as a tradeoff — the CI pipeline remained the authoritative enforcement point, with local hooks as an optional acceleration layer.
+
+### CI resource contention
+
+Running four validation layers per PR increased CI runtime and resource usage. On active repositories with frequent PRs, queue times increased. This was a real cost, not a negligible one.
+
+### Balancing speed and enforcement
+
+Some changes — documentation updates, configuration adjustments, safe dependency bumps — did not warrant the full validation chain. The pipeline was extended to support path-scoped skipping for changes with no code surface, reducing unnecessary CI load.
 
 ## Rollout Strategy
 
 Enforcement was introduced incrementally, not as a big-bang policy change.
 
-The first phase was **advisory mode**. The pipeline ran all validation layers, but failures were reported rather than blocking. Teams could see the results without being blocked by them. This phase ran for several weeks and served two purposes: it surfaced the current state of coverage across repositories, and it gave teams time to stabilise failing tests before enforcement landed.
+The first phase was advisory mode. The pipeline ran all validation layers, but failures were reported rather than blocking. Teams could see the results without being blocked by them. This phase ran for several weeks and served two purposes: it surfaced the current state of coverage across repositories, and it gave teams time to stabilise failing tests before enforcement landed.
 
-The second phase introduced **blocking enforcement on new repositories** only. Repositories with healthy coverage became the initial enforcement boundary. New projects and recently onboarded repositories adopted the contract from the start.
+The second phase introduced blocking enforcement on new repositories only. Repositories with healthy coverage became the initial enforcement boundary. New projects and recently onboarded repositories adopted the contract from the start.
 
 The third phase extended enforcement incrementally to legacy repositories, paced by coverage milestones. A repository with at least 60% unit test coverage and no persistent flaky tests became eligible for enforcement. Teams were given a target window and support to reach it.
 
