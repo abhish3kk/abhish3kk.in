@@ -38,9 +38,7 @@ export default function EngineeringNotesPage() {
         </section>
 
         <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
-          <p>
-            Abhishek Sharma. Built as a static, MDX-ready engineering platform.
-          </p>
+          <p>Abhishek Sharma. Engineering notes from real systems work.</p>
         </footer>
       </div>
     </main>

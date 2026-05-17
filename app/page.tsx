@@ -85,9 +85,8 @@ export default function Home() {
           <aside className="border-t border-zinc-200 pt-6 text-sm leading-7 text-zinc-600 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-6 dark:border-zinc-800 dark:text-zinc-400">
             <p className="font-mono text-zinc-500">Current focus</p>
             <p className="mt-3">
-              Building a quiet, durable home for engineering case studies,
-              architecture notes, modernization reports, and small technical
-              proofs.
+              Building a simple, stable home for case studies, architecture
+              notes, and small technical experiments.
             </p>
           </aside>
         </section>
@@ -95,7 +94,7 @@ export default function Home() {
         <Section
           id="case-studies"
           title="Featured Case Studies"
-          description="Architecture-focused writeups that explain constraints, tradeoffs, systems boundaries, and outcomes."
+          description="Writeups covering constraints, tradeoffs, and outcomes from real systems work."
           viewAllHref="/case-studies"
           viewAllLabel="Explore all case studies"
         >
@@ -135,10 +134,7 @@ export default function Home() {
         </Section>
 
         <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
-          <p>
-            Abhishek Sharma. Systems, modernization, and operational engineering
-            notes.
-          </p>
+          <p>Abhishek Sharma. Engineering notes from real systems work.</p>
         </footer>
       </div>
     </main>

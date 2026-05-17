@@ -30,8 +30,8 @@ export default function CaseStudiesPage() {
             Case studies written as architecture notes.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
-            Systems, migrations, and product surfaces documented through
-            constraints, boundaries, tradeoffs, and outcomes.
+            Systems and migrations documented through constraints, tradeoffs,
+            and outcomes.
           </p>
         </section>
 
@@ -42,10 +42,7 @@ export default function CaseStudiesPage() {
         </section>
 
         <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
-          <p>
-            Abhishek Sharma. Systems, modernization, and operational engineering
-            notes.
-          </p>
+          <p>Abhishek Sharma. Engineering notes from real systems work.</p>
         </footer>
       </div>
     </main>

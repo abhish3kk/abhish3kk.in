@@ -1,7 +1,7 @@
 ---
 title: "Angular Migration Across Shared Microfrontends"
 summary: "How we migrated a tightly-coupled microfrontend platform from Angular 13 to 18—with ag-Grid 29 to 32 in tow—while preserving rollback safety and coordinating sign-off across multiple downstream teams."
-subtitle: "Coordinating a framework jump, an ag-Grid upgrade, and a zero-downtime rollout strategy across cross-team ownership boundaries."
+subtitle: "A framework jump, an ag-Grid major version upgrade, and a rollout designed around teams we didn't control."
 status: "Shipped"
 year: 2026
 role: "Lead frontend engineer responsible for upgrade strategy, rollout design, and cross-team coordination across six microfrontends."
@@ -68,7 +68,7 @@ flowchart LR
 
 ## Rollout Strategy
 
-The application is business-critical with regular production release cycles, so the rollout plan had to support an instant switch between the Angular 13 baseline and the Angular 18 candidate at any point—including after go-live if issues were discovered.
+The application runs in production with regular release cycles, and the rollout plan had to support an instant switch between the Angular 13 baseline and Angular 18 at any point — including after go-live if something went wrong.
 
 The API gateway is written to read each MFE's `remoteentry.js` host from a MongoDB config document, not from hardcoded values in the application. This meant the target cluster for any MFE could be changed without touching code or triggering a redeployment.
 
@@ -106,7 +106,7 @@ A rollback to Angular 13 required only a MongoDB config change. The gateway woul
 
 ### Parallel Cluster Cost
 
-Keeping both Angular 13 and Angular 18 clusters running simultaneously meant running double the ECS capacity for the duration of the rollout period. This was an accepted cost given the criticality of having a no-code-deploy rollback option.
+Keeping both Angular 13 and Angular 18 clusters running simultaneously meant running double the ECS capacity for the duration of the rollout period. That was an accepted cost — having a rollback path that required no code change or pipeline trigger was worth the extra capacity.
 
 ### Manual Screen Validation Scale
 
@@ -114,7 +114,7 @@ With six MFEs, each covering a significant amount of functionality, manual scree
 
 ### Cross-Team QA Coordination
 
-Because sign-off was gated on each downstream team's QA availability, the critical path was determined by scheduling rather than technical complexity. Surfacing this dependency early and keeping each team informed of the QA timeline was essential to avoiding a bottleneck at the end of the upgrade cycle.
+Because sign-off was gated on each downstream team's QA availability, the critical path was determined by scheduling rather than technical complexity. Flagging this dependency early — and keeping each team informed of the timeline — was the main thing that prevented a stall at the end of the cycle.
 
 ## Outcome
 
@@ -122,9 +122,9 @@ All six MFEs were successfully migrated to Angular 18 and ag-Grid 32 and shipped
 
 The gateway-driven rollout strategy made the production release a controlled event rather than a high-stakes deployment. The ability to redirect any individual MFE to the Angular 13 cluster within minutes removed the binary all-or-nothing risk that typically accompanies major framework upgrades.
 
-Several patterns from this migration have become defaults for subsequent work:
+A few things from this migration are now defaults:
 
-- Configuration-driven host routing as a rollout primitive, independent of deployment pipelines.
-- Wiki-first shared solutions when multiple developers encounter the same breaking change.
-- Path-traversal upgrade ordering to keep effort aligned with observable failures rather than theoretical sequencing.
-- Cross-team QA dependency mapping early in the planning phase, not at sign-off time.
+- Configuration-driven host routing as a rollout mechanism — no deployment pipeline required.
+- Shared wiki documentation when multiple developers hit the same breaking change, rather than each one solving it independently.
+- Letting visible load failures drive upgrade order rather than pre-planned sequencing.
+- Identifying cross-team QA dependencies at the start of planning, not at sign-off.
