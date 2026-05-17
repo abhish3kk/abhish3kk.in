@@ -62,9 +62,9 @@ export default function Home() {
               reliability, and long-term maintainability.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
-              I work across the frontend stack — migrations, delivery pipelines,
-              observability, platform systems, and architecture — with a focus
-              on keeping things reliable and easy to reason about.
+              I work across modernization initiatives, platform systems,
+              operational tooling, and cloud delivery with a focus on
+              reliability and maintainability.
             </p>
             <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
               <ExternalLink
