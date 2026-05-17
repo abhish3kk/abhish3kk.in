@@ -122,15 +122,25 @@ The final phase brought all active repositories under full enforcement. By this 
 
 This approach was not without cost, and documenting those costs honestly is part of understanding the strategy.
 
-**Slower PR cycles in the early phase.** Adding validation layers to the pipeline increased the time between a PR opening and the developer receiving a result. For teams accustomed to fast merges, this was friction.
+### Slower PR cycles in the early phase
 
-**CI cost.** More validation steps meant more compute time per PR. At scale, across multiple active repositories, this was a meaningful budget consideration.
+Adding validation layers to the pipeline increased the time between a PR opening and the developer receiving a result. For teams accustomed to fast merges, this was friction.
 
-**Test maintenance overhead.** Mock integration tests, in particular, required sustained maintenance. API contracts change. New endpoints are introduced. Existing mocks drift from reality if not kept in sync. The maintenance burden was real and required deliberate ownership.
+### CI cost
 
-**Flaky test ownership.** Flaky tests in a blocking pipeline are worse than flaky tests in an advisory one. Once enforcement was live, any test that failed intermittently became an incident. Owning and resolving test flakiness became a first-class engineering concern, not a background task.
+More validation steps meant more compute time per PR. At scale, across multiple active repositories, this was a meaningful budget consideration.
 
-**Coverage as a false confidence signal.** High test coverage does not mean high defect detection. Teams that rushed to add superficial tests to reach the coverage threshold before enforcement landed produced coverage numbers that looked healthy but did not meaningfully improve confidence. Coverage is a proxy, not a guarantee.
+### Test maintenance overhead
+
+Mock integration tests, in particular, required sustained maintenance. API contracts change. New endpoints are introduced. Existing mocks drift from reality if not kept in sync. The maintenance burden was real and required deliberate ownership.
+
+### Flaky test ownership
+
+Flaky tests in a blocking pipeline are worse than flaky tests in an advisory one. Once enforcement was live, any test that failed intermittently became an incident. Owning and resolving test flakiness became a first-class engineering concern, not a background task.
+
+### Coverage as a false confidence signal
+
+High test coverage does not mean high defect detection. Teams that rushed to add superficial tests to reach the coverage threshold before enforcement landed produced coverage numbers that looked healthy but did not meaningfully improve confidence. Coverage is a proxy, not a guarantee.
 
 ## Outcome
 
