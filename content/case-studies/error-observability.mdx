@@ -1,7 +1,7 @@
 ---
-title: "End-to-End Frontend Error Observability"
+title: "Frontend Error Visibility Across Eight Microfrontends"
 subtitle: "Capturing what users actually see — without asking them."
-summary: "How we built a batched, async error-capture pipeline across eight microfrontends to replace client triage sessions with searchable MongoDB logs."
+summary: "Frontend errors were disappearing silently into the browser console with no record. We built a batched async capture pipeline across eight microfrontends — errors now land in MongoDB and incident triage is a query, not a call."
 status: "Shipped"
 year: 2026
 role: "Lead engineer responsible for observability design, backend ingestion endpoint, and MongoDB TTL strategy across eight microfrontends."
@@ -23,7 +23,7 @@ After migrating eight microfrontends from Angular 13 to Angular 18, the team had
 
 The problem was that when something went wrong in the UI, there was no record of it. Errors surfaced only when a client raised a support ticket, at which point the team had nothing to work with except a vague description. Every incident started the same way: a triage call with dev, support, and the client, trying to reproduce something nobody could directly observe.
 
-Months of regression work should not end with a shrug at production. The gap was observability — specifically, the complete absence of frontend error visibility in a system that runs across eight independent microfrontends.
+Months of regression work should not end with a shrug at production. The gap was simple: there was no record of what the UI was doing when something went wrong. Eight independent microfrontends, none of them reporting anything.
 
 ## Problems
 
@@ -50,14 +50,14 @@ flowchart LR
 
 Each document in the collection includes:
 
-| Field | Description |
-|---|---|
-| `timestamp` | UTC time the error was captured |
-| `error` | Error message string |
-| `stackTrace` | Full stack trace if available |
-| `path` | window.location.pathname at capture time |
-| `userAgent` | Browser and OS identity |
-| `env` | Environment tag (qa, uat, prod) |
+| Field        | Description                              |
+| ------------ | ---------------------------------------- |
+| `timestamp`  | UTC time the error was captured          |
+| `error`      | Error message string                     |
+| `stackTrace` | Full stack trace if available            |
+| `path`       | window.location.pathname at capture time |
+| `userAgent`  | Browser and OS identity                  |
+| `env`        | Environment tag (qa, uat, prod)          |
 
 ### Why console.error instead of Angular's ErrorHandler
 
