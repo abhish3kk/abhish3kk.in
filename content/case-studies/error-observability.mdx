@@ -1,0 +1,93 @@
+---
+title: "Frontend Error Visibility Across Eight Microfrontends"
+subtitle: "Capturing what users actually see — without asking them."
+summary: "Frontend errors were disappearing silently into the browser console with no record. We built a batched async capture pipeline across eight microfrontends — errors now land in MongoDB and incident triage is a query, not a call."
+status: "Shipped"
+year: 2026
+role: "Lead engineer responsible for observability design, backend ingestion endpoint, and MongoDB TTL strategy across eight microfrontends."
+stack:
+  - Angular
+  - Node.js
+  - MongoDB
+  - ECS
+domains:
+  - Observability
+  - Error Tracking
+  - Microfrontend Architecture
+featured: true
+---
+
+## Context
+
+After migrating eight microfrontends from Angular 13 to Angular 18, the team had high confidence in the regression coverage — but production is never the same as QA. Edge cases escape. Browser environments vary. Users hit states that no test matrix anticipates.
+
+The problem was that when something went wrong in the UI, there was no record of it. Errors surfaced only when a client raised a support ticket, at which point the team had nothing to work with except a vague description. Every incident started the same way: a triage call with dev, support, and the client, trying to reproduce something nobody could directly observe.
+
+Months of regression work should not end with a shrug at production. The gap was simple: there was no record of what the UI was doing when something went wrong. Eight independent microfrontends, none of them reporting anything.
+
+## Problems
+
+- Frontend errors disappeared silently into the browser console with no record
+- Backend teams had no visibility into what the UI was actually doing at the time of failure
+- Incident triage required coordinating developer, support, and client in the same call just to reproduce the error
+- No correlation between what the user experienced and what appeared in server logs
+- Mean time to reproduce was high; mean time to resolve was higher
+
+## Architecture Decisions
+
+The core design overrides `console.error` at the application bootstrap level. The override intercepts every error argument, appends it to an in-memory buffer, and returns immediately — no synchronous work, no impact on the calling code.
+
+A flush is triggered by whichever condition fires first: the buffer reaching a batch size of 3–5 entries, or a 2-minute interval elapsing with any buffered entries. On flush, the buffer is drained and sent as a single POST to `/uierrorlog`. The endpoint writes one MongoDB document per request, containing the full error payload alongside metadata collected at capture time.
+
+```mermaid
+flowchart LR
+    CE["console.error\n(overridden)"] --> BUF["In-memory buffer"]
+    BUF -->|batch ≥ N\nor 2 min elapsed| FLUSH["Flush — fire & forget\nPOST /uierrorlog"]
+    FLUSH --> BE["Node.js backend"]
+    BE --> DB["MongoDB collection\nuierrorlogs"]
+    DB -->|TTL index\n14 days| PURGE["Auto-purge\nold documents"]
+```
+
+Each document in the collection includes:
+
+| Field        | Description                              |
+| ------------ | ---------------------------------------- |
+| `timestamp`  | UTC time the error was captured          |
+| `error`      | Error message string                     |
+| `stackTrace` | Full stack trace if available            |
+| `path`       | window.location.pathname at capture time |
+| `userAgent`  | Browser and OS identity                  |
+| `env`        | Environment tag (qa, uat, prod)          |
+
+### Why console.error instead of Angular's ErrorHandler
+
+Angular's built-in `ErrorHandler` only intercepts errors thrown during change detection, component lifecycle hooks, and template evaluation. It does not capture raw `console.error` calls, browser API failures, or errors originating outside Angular's zone. In practice, the majority of production noise came from exactly those sources — making the built-in handler insufficient for this use case.
+
+## Operational Constraints
+
+The constraints on this system were as strict as the functional requirements. A logging subsystem that disrupts the application it is observing is worse than no logging at all.
+
+- No UI performance impact: the override does synchronous work only to push to an array; the flush is fully asynchronous and decoupled from the UI thread
+- Fail-safe by design: if the network request to /uierrorlog fails — timeout, server error, client offline — the failure is caught and silently discarded; logging must never propagate an exception back into the application
+- No blocking of user flows: the flush is fire-and-forget with no await and no response handling in the calling path
+- Log explosion prevention: a MongoDB TTL index on the timestamp field automatically purges documents older than 14 days, bounding collection growth without manual cleanup jobs
+- Expected noise is tolerated, not filtered: client-side network failures are frequent but rarely actionable; the 14-day TTL lets volume decay naturally rather than adding capture-time filter logic
+
+## Validation / Rollout
+
+The system was enabled per MFE, starting with the lowest-traffic module. For each rollout:
+
+- A known console.error call was intentionally triggered in QA
+- The collection was queried to confirm the document appeared with the expected fields
+- The env tag was verified to distinguish QA entries from production entries
+
+No feature flag was required. Because the flush is fail-safe and async, enabling the override carried no risk to the user experience — even if the backend was unreachable. This made progressive rollout straightforward: each MFE was enabled in sequence with verification, not gated behind a flag toggle.
+
+## Outcome
+
+The collection became the first place anyone looked when a client reported a UI issue. Timestamp and path were enough to retrieve the exact error a user had encountered — no triage call, no reproduction session, no dependency on the client's memory of what they were doing.
+
+- Incident triage no longer requires a coordinated session between dev, support, and client
+- Errors are searchable by timestamp, path, and environment from the moment they occur
+- Reduced MTTR across all eight microfrontends — reproduction is a query, not a meeting
+- The console.error override + batch + TTL pattern is now the default starting point for any new MFE added to the platform

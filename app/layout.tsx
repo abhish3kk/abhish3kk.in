@@ -6,7 +6,7 @@ import "@/styles/globals.css";
 export const metadata: Metadata = {
   title: "Abhishek Sharma | Engineering",
   description:
-    "Architecture notes covering modernization, frontend platforms, reliability, and systems engineering.",
+    "Engineering notes from migrations, frontend platforms, and reliability work.",
   icons: {
     icon: "/favicon.svg",
   },
