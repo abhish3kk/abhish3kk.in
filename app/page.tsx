@@ -58,13 +58,13 @@ export default function Home() {
               Architecture / Modernization / Reliability
             </p>
             <h1 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
-              Notes from working on systems that needed careful migration,
-              better reliability, or cleaner long-term footing.
+              Architecture notes from systems that needed modernization,
+              reliability, and long-term maintainability.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
-              I work on migrations, platform infrastructure, and delivery
-              systems — mostly focused on keeping things reliable and
-              maintainable over time.
+              I work across the frontend stack — migrations, delivery pipelines,
+              observability, platform systems, and architecture — with a focus
+              on keeping things reliable and easy to reason about.
             </p>
             <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
               <ExternalLink
