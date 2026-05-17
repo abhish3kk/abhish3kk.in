@@ -11,7 +11,8 @@ type Block =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
   | { type: "mermaid"; code: string }
-  | { type: "code"; lang: string; code: string };
+  | { type: "code"; lang: string; code: string }
+  | { type: "table"; headers: string[]; rows: string[][] };
 
 export function MdxContent({ source }: MdxContentProps) {
   return (
@@ -21,6 +22,17 @@ export function MdxContent({ source }: MdxContentProps) {
       ))}
     </>
   );
+}
+
+function parseTableCells(line: string): string[] {
+  return line
+    .split("|")
+    .slice(1, -1)
+    .map((cell) => cell.trim());
+}
+
+function isTableSeparator(line: string): boolean {
+  return /^\|[\s|:-]+\|$/.test(line);
 }
 
 function renderBlock(block: Block) {
@@ -66,6 +78,29 @@ function renderBlock(block: Block) {
     );
   }
 
+  if (block.type === "table") {
+    return (
+      <table>
+        <thead>
+          <tr>
+            {block.headers.map((h) => (
+              <th key={h}>{h}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {block.rows.map((row, i) => (
+            <tr key={i}>
+              {row.map((cell, j) => (
+                <td key={j}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
   return <p>{block.text}</p>;
 }
 
@@ -74,6 +109,8 @@ function parseBlocks(source: string): Block[] {
   const lines = source.split("\n");
   let paragraph: string[] = [];
   let list: string[] = [];
+  let tableHeaders: string[] | null = null;
+  let tableRows: string[][] = [];
   let mermaidLines: string[] | null = null;
   let codeLines: string[] | null = null;
   let codeLang = "";
@@ -89,6 +126,14 @@ function parseBlocks(source: string): Block[] {
     if (list.length > 0) {
       blocks.push({ type: "list", items: list });
       list = [];
+    }
+  }
+
+  function flushTable() {
+    if (tableHeaders !== null) {
+      blocks.push({ type: "table", headers: tableHeaders, rows: tableRows });
+      tableHeaders = null;
+      tableRows = [];
     }
   }
 
@@ -114,6 +159,25 @@ function parseBlocks(source: string): Block[] {
         codeLines.push(line);
       }
       continue;
+    }
+
+    if (trimmedLine.startsWith("|")) {
+      flushParagraph();
+      flushList();
+      if (isTableSeparator(trimmedLine)) {
+        continue;
+      }
+      const cells = parseTableCells(trimmedLine);
+      if (tableHeaders === null) {
+        tableHeaders = cells;
+      } else {
+        tableRows.push(cells);
+      }
+      continue;
+    }
+
+    if (tableHeaders !== null) {
+      flushTable();
     }
 
     if (trimmedLine === "```mermaid") {
@@ -163,6 +227,7 @@ function parseBlocks(source: string): Block[] {
 
   flushParagraph();
   flushList();
+  flushTable();
 
   return blocks;
 }
