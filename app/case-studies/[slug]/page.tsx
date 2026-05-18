@@ -50,6 +50,10 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <article className="py-10 sm:py-14">
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
             {caseStudy.status} / {caseStudy.year}
+            <span className="mx-2 text-zinc-300 dark:text-zinc-700">/</span>
+            <span className="normal-case tracking-normal">
+              ~{caseStudy.readingTime} min read
+            </span>
           </div>
           <h1 className="mt-5 text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
             {caseStudy.title}

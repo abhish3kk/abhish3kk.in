@@ -16,4 +16,5 @@ export type CaseStudyFrontmatter = z.infer<typeof caseStudyFrontmatterSchema>;
 export type CaseStudy = CaseStudyFrontmatter & {
   slug: string;
   content: string;
+  readingTime: number;
 };
