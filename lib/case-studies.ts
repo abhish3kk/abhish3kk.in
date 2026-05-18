@@ -4,6 +4,7 @@ import {
   type CaseStudy,
   caseStudyFrontmatterSchema,
 } from "@/lib/content-schema";
+import { calculateReadingTime } from "@/lib/reading-time";
 
 const caseStudiesDirectory = path.join(
   process.cwd(),
@@ -102,6 +103,7 @@ function getCaseStudyFromFile(filename: string): CaseStudy {
   return {
     slug,
     content,
+    readingTime: calculateReadingTime(content),
     ...frontmatter,
   };
 }

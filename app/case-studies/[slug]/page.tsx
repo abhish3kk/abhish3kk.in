@@ -48,8 +48,12 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <SiteHeader links={innerNav} />
 
         <article className="py-10 sm:py-14">
-          <div className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
-            {caseStudy.status} / {caseStudy.year}
+          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-zinc-500">
+            <span>{caseStudy.status} </span>
+            <span className="inline-block align-middle">·</span>
+            <span>{caseStudy.year}</span>
+            <span className="inline-block align-middle">·</span>
+            <span>~{caseStudy.readingTime} min read</span>
           </div>
           <h1 className="mt-5 text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
             {caseStudy.title}
