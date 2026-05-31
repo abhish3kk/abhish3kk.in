@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { MdxContent } from "@/components/mdx-content";
 import { Prose } from "@/components/prose";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCaseStudyBySlug, getCaseStudySlugs } from "@/lib/case-studies";
 
@@ -95,6 +96,8 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             </Prose>
           </div>
         </article>
+
+        <SiteFooter />
       </div>
     </main>
   );

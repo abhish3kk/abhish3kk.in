@@ -1,6 +1,7 @@
 import { ExternalLink } from "@/components/external-link";
 import { FeatureCard } from "@/components/feature-card";
 import { Section } from "@/components/section";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCaseStudies } from "@/lib/case-studies";
 import { SiGithub } from "react-icons/si";
@@ -133,9 +134,7 @@ export default function Home() {
           ))}
         </Section>
 
-        <footer className="mt-20 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
-          <p>Abhishek Sharma. Engineering notes from real systems work.</p>
-        </footer>
+        <SiteFooter />
       </div>
     </main>
   );
