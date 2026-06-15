@@ -1,5 +1,27 @@
+# AI tooling
+.claude/
+.codex/
+
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+dist/
+dist-ssr/
+out/
+*.tsbuildinfo
+
+# Coverage
+coverage/
+
+# Cache and temporary files
+.cache/
+tmp/
+*.local
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,22 +29,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-.next
-out
-*.tsbuildinfo
-*.local
-
-# Editor directories and files
-.vscode/
+# Editor files
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Operating system files
+.DS_Store
