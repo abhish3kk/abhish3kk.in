@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import { MdxContent } from "@/components/mdx-content";
-import { Prose } from "@/components/prose";
+import { ArticlePage } from "@/components/article-page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCaseStudyBySlug, getCaseStudySlugs } from "@/lib/case-studies";
@@ -48,54 +47,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
         <SiteHeader links={innerNav} />
 
-        <article className="py-10 sm:py-14">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-zinc-500">
-            <span>{caseStudy.status} </span>
-            <span className="inline-block align-middle">·</span>
-            <span>{caseStudy.year}</span>
-            <span className="inline-block align-middle">·</span>
-            <span>~{caseStudy.readingTime} min read</span>
-          </div>
-          <h1 className="mt-5 text-3xl font-semibold leading-tight text-zinc-950 sm:text-4xl lg:text-5xl dark:text-zinc-50">
-            {caseStudy.title}
-          </h1>
-          <p className="mt-5 text-base leading-7 text-zinc-700 sm:text-lg sm:leading-8 dark:text-zinc-300">
-            {caseStudy.summary}
-          </p>
-
-          <dl className="mt-10 grid gap-6 border-y border-zinc-200 py-6 text-sm sm:grid-cols-3 dark:border-zinc-800">
-            <div>
-              <dt className="font-mono uppercase tracking-[0.18em] text-zinc-500">
-                Role
-              </dt>
-              <dd className="mt-2 text-zinc-700 dark:text-zinc-300">
-                {caseStudy.role}
-              </dd>
-            </div>
-            <div>
-              <dt className="font-mono uppercase tracking-[0.18em] text-zinc-500">
-                Stack
-              </dt>
-              <dd className="mt-2 text-zinc-700 dark:text-zinc-300">
-                {caseStudy.stack.join(", ")}
-              </dd>
-            </div>
-            <div>
-              <dt className="font-mono uppercase tracking-[0.18em] text-zinc-500">
-                Domains
-              </dt>
-              <dd className="mt-2 text-zinc-700 dark:text-zinc-300">
-                {caseStudy.domains.join(", ")}
-              </dd>
-            </div>
-          </dl>
-
-          <div className="mt-12">
-            <Prose>
-              <MdxContent source={caseStudy.content} />
-            </Prose>
-          </div>
-        </article>
+        <ArticlePage article={caseStudy} />
 
         <SiteFooter />
       </div>
