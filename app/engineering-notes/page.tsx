@@ -1,5 +1,7 @@
+import { CaseStudyCard } from "@/components/case-study-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getEngineeringNotes } from "@/lib/engineering-notes";
 
 export const metadata = {
   title: "Engineering Notes | Abhishek Sharma",
@@ -14,6 +16,8 @@ const innerNav = [
 ];
 
 export default function EngineeringNotesPage() {
+  const notes = getEngineeringNotes();
+
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100">
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-8 sm:px-8 lg:px-10">
@@ -32,10 +36,14 @@ export default function EngineeringNotesPage() {
           </p>
         </section>
 
-        <section className="border-t border-zinc-200 py-14 dark:border-zinc-800">
-          <p className="font-mono text-sm text-zinc-500">
-            Notes are being drafted. Check back soon.
-          </p>
+        <section className="grid gap-4 border-t border-zinc-200 py-10 sm:grid-cols-2 dark:border-zinc-800">
+          {notes.map((note) => (
+            <CaseStudyCard
+              caseStudy={note}
+              hrefBase="/engineering-notes"
+              key={note.slug}
+            />
+          ))}
         </section>
 
         <SiteFooter />

@@ -18,3 +18,15 @@ export type CaseStudy = CaseStudyFrontmatter & {
   content: string;
   readingTime: number;
 };
+
+export const engineeringNoteFrontmatterSchema = caseStudyFrontmatterSchema;
+
+export type EngineeringNoteFrontmatter = z.infer<
+  typeof engineeringNoteFrontmatterSchema
+>;
+
+export type EngineeringNote = EngineeringNoteFrontmatter & {
+  slug: string;
+  content: string;
+  readingTime: number;
+};

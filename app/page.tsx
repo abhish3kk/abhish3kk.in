@@ -4,23 +4,9 @@ import { Section } from "@/components/section";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCaseStudies } from "@/lib/case-studies";
+import { getEngineeringNotes } from "@/lib/engineering-notes";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
-
-const notes = [
-  {
-    eyebrow: "Field note",
-    title: "Simple Systems Age Better",
-    description:
-      "How small interfaces, boring deployment paths, and explicit content models reduce maintenance pressure over time.",
-  },
-  {
-    eyebrow: "Frontend platform",
-    title: "Static First, Dynamic When Proven",
-    description:
-      "A practical bias for static generation, progressive enhancement, and fewer moving parts in delivery infrastructure.",
-  },
-];
 
 const labs = [
   {
@@ -41,6 +27,7 @@ export default function Home() {
   const caseStudies = getCaseStudies().filter(
     (caseStudy) => caseStudy.featured,
   );
+  const notes = getEngineeringNotes().filter((note) => note.featured);
 
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100">
@@ -117,8 +104,14 @@ export default function Home() {
           viewAllHref="/engineering-notes"
           viewAllLabel="View all notes"
         >
-          {notes.map((item) => (
-            <FeatureCard key={item.title} {...item} />
+          {notes.map((note) => (
+            <FeatureCard
+              description={note.summary}
+              eyebrow={`${note.status} / ${note.year}`}
+              href={`/engineering-notes/${note.slug}`}
+              key={note.slug}
+              title={note.title}
+            />
           ))}
         </Section>
 

@@ -1,3 +1,3 @@
 # Engineering Notes
 
-Future MDX engineering notes will live here.
+MDX engineering notes live here.

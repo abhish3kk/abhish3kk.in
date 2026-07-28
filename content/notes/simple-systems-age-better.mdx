@@ -1,0 +1,148 @@
+---
+title: "Simple Systems Age Better"
+summary: "Systems usually become hard to maintain through operational weight, not clever code. This note is about choosing fewer moving parts, clearer ownership, and systems that are easier to understand six months later."
+status: "Published"
+year: 2026
+role: "Engineer and site owner"
+stack:
+  - "Static publishing"
+  - "MDX"
+  - "Git"
+  - "Operational design"
+domains:
+  - "Maintainability"
+  - "Operational complexity"
+  - "System design"
+featured: true
+---
+
+## The Question
+
+Why do systems become harder to maintain even when they technically become better?
+
+Every system starts simple. Then someone adds a feature. Another integration. A cache. A deployment script. A monitoring dashboard. A feature flag.
+
+None of those decisions are necessarily wrong. Most of them are easy to justify in the moment. But eventually the maintenance surface becomes larger than the product itself.
+
+The system can still look good on a diagram. It can still use good tools. It can still follow reasonable engineering patterns.
+
+Operationally, it can still fail.
+
+## The Version I Could Not Revive
+
+When I first started developing this website seriously, it ran on Ghost CMS, Node.js, Docker, and MySQL on a VPS. I had started writing content and published around 10 to 12 articles.
+
+At the time, the setup felt like a proper publishing platform. There was a CMS, a database, a runtime, containers, and a server I could control. Technically, it was not a bad architecture.
+
+Then work became busier, and the website slowly lost attention.
+
+Years later, when I wanted to revive it, I could not.
+
+The Node.js version was deprecated. Ghost CMS had gone through major upgrades. Docker images had changed. The database needed care. Even getting the project running again became a project in itself.
+
+The original goal was simple: have a place where I could keep writing.
+
+Instead, I had created something that required maintenance before I could even create content.
+
+## Complexity Is Usually Operational
+
+Most systems do not become painful because the code contains difficult algorithms. They become painful because the surrounding environment has grown too heavy.
+
+The real complexity often lives in:
+
+- Environments that behave differently
+- Deployment paths that only one person understands
+- Infrastructure that needs patching and upgrades
+- Configuration that nobody wants to touch
+- Monitoring that creates alerts without ownership
+- Services that are technically available but operationally orphaned
+
+This is the part that is easy to underestimate. A database is not just a database. It is backups, migrations, credentials, storage limits, version upgrades, restore drills, and production debugging. A cache is not just a cache. It is invalidation rules, memory pressure, stale reads, client behavior, and failure modes.
+
+The tool might be good. The operational cost might still be wrong for the problem.
+
+```mermaid
+flowchart LR
+    A["Simple system"] --> B["Feature"]
+    B --> C["Integration"]
+    C --> D["Cache"]
+    D --> E["Deployment script"]
+    E --> F["Monitoring"]
+    F --> G["Ownership and maintenance"]
+```
+
+## Every Moving Part Becomes Someone's Responsibility
+
+Every new dependency eventually asks for attention.
+
+It needs upgrades. It needs monitoring. It needs debugging. It needs documentation. Most importantly, it needs an owner.
+
+CI pipelines, feature flags, observability tools, databases, queues, caches, and deployment platforms are useful when they are solving a real problem. They are not free just because they are common.
+
+The cost usually arrives later. Not on the day the tool is introduced, but six months later when the build breaks, the credentials rotate, the library reaches end of life, the dashboard turns red, or the one person who understood the setup has moved on to something else.
+
+That is why the question should not only be:
+
+Can I build this today?
+
+It should also be:
+
+Who maintains this six months from now?
+
+## Maintenance Always Wins
+
+Software is built once and maintained for years.
+
+That sounds obvious, but many technical decisions are still made with the energy of the build phase. We optimize for getting the thing working, proving the pattern, using the nicer tool, or preparing for a scale that has not arrived yet.
+
+Maintenance has a different personality. It is less impressed by novelty. It cares about whether the system can be understood after a long gap. It cares about whether a new person can make a small change without learning five unrelated tools first. It cares about whether failure states are boring enough to reason about.
+
+Long-lived systems need fewer clever edges and more durable habits.
+
+## Simple Does Not Mean Primitive
+
+Simple systems are not the same as primitive systems.
+
+A simple system can still be reliable, scalable, maintainable, and well-architected. Simplicity does not mean ignoring engineering discipline. It means reducing unnecessary moving parts until the remaining parts are justified by real needs.
+
+For this website, that meant moving toward MDX files in git, static generation, typed frontmatter, and automated deployment. There is still structure. There is still validation. There is still a publishing workflow.
+
+What disappeared was the runtime burden: no CMS to upgrade, no database to restore, no VPS to patch, no container stack to remember, and no server-side process waiting to break after months of silence.
+
+That is the kind of simplicity I trust.
+
+## Optimize Understanding First
+
+Optimization is useful when it responds to something real.
+
+The problem is optimizing for hypothetical futures too early. A system can gain queues, caches, abstractions, flags, and services long before the team has enough evidence that those things are needed.
+
+Understanding usually gives better returns first.
+
+Can the system be explained clearly? Can the deployment path be followed without guesswork? Can failures be observed? Can a small change be made without touching unrelated infrastructure? Can ownership be named?
+
+If those answers are weak, adding more machinery rarely helps. It usually gives the team more places to look when something breaks.
+
+## Signs The System Is Getting Too Heavy
+
+A few signals make me pause:
+
+- Infrastructure is introduced before there is a real operational need
+- Abstractions appear before duplication exists
+- There are multiple ways to deploy the same thing
+- Configuration grows faster than product behavior
+- A service exists, but nobody clearly owns it
+- Local setup requires remembering steps that are not written down
+- A small content or code change needs unrelated systems to be healthy first
+
+None of these automatically mean the design is wrong. They are prompts to ask whether the complexity has earned its place.
+
+## The Bias I Prefer
+
+The goal of every long-lived system should be low maintenance and low operational complexity.
+
+Complexity should be operationally justified, not technically interesting.
+
+I do not try to build the smartest system by default. I try to build the system that is easiest to understand, operate, and maintain six months later.
+
+That is not a universal rule. It is just the bias I trust after watching simple goals get buried under systems that were technically fine and operationally expensive.
